@@ -19,20 +19,21 @@ public class DatasGridPane {
     
     private GridPane datas;
     
-    void initGridPane (){
+
+    private void initGridPane (){
         datas = new GridPane(); //datas of user
         datas.setPadding(new Insets(5));
         datas.setHgap(10);
         datas.setVgap(15);  
     }
 
-    void addTitle() {
+    private void addTitle() {
         Label datasTitle = new Label("Données");
         datasTitle.setUnderline(true);
         datas.add(datasTitle, 0, 0);        
     }
     
-    void addLabels() {
+    private void addLabels() {
         Label lblSize = new Label("Taille (cm)");
         datas.add(lblSize, 0, 1);
         
@@ -49,7 +50,7 @@ public class DatasGridPane {
         datas.add(lblLifeStyle, 0, 5);
     }
     
-    void addTextFields() {
+    private void addTextFields() {
         TextField tfdSize = new TextField();
         tfdSize.setPromptText("Taille en cm");
         datas.add(tfdSize, 1, 1);
@@ -63,30 +64,37 @@ public class DatasGridPane {
         datas.add(tfdAge, 1, 3);
     }
     
-    void addLifeStyleChoiceBox() {
+    private void addLifeStyleChoiceBox() {
         ChoiceBox cbLifeStyle = new ChoiceBox();
         cbLifeStyle.getItems().addAll(LifeStyle.values());
         cbLifeStyle.getSelectionModel().selectFirst();
         datas.add(cbLifeStyle, 1, 5);   
     }
 
-    void addGenderButtons() {
-        //create radio button group
+    private void addGenderButtons() {
         final ToggleGroup groupChoiceSex = new ToggleGroup();
-
         RadioButton rbWomen = new RadioButton("Femme");
         RadioButton rbMen = new RadioButton("Homme");
+        
+        //put buttons in a group and set selection
         rbWomen.setToggleGroup(groupChoiceSex);
         rbMen.setToggleGroup(groupChoiceSex);
         rbWomen.setSelected(true);
-
+        
+        //put buttons in a box and add box in datas.
         HBox sexChoice = new HBox(20);
         sexChoice.getChildren().addAll(rbWomen, rbMen);
         datas.add(sexChoice, 1, 4);
     }
 
-
-
+    void initAndSet() {
+        initGridPane();
+        addTitle();
+        addLabels();
+        addTextFields();
+        addGenderButtons();
+        addLifeStyleChoiceBox();
+    }
     
     public GridPane getDatas() {
         return datas;

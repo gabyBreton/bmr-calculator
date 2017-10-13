@@ -48,17 +48,12 @@ public class BMRCalculator extends Application {
         HBox infosZone = new HBox(); // zone with user datas & results
         infosZone.setPadding(new Insets(7));
         
-        datas.initGridPane();
-        datas.addTitle();
-        datas.addLabels();
-        datas.addTextFields();
-        datas.addGenderButtons();
-        datas.addLifeStyleChoiceBox();
+        datas = new DatasGridPane(); //datas zone of user
+        results = new ResultsGridPane();//results zone of user
+
+        datas.initAndSet();
+        results.initAndSet();
         
-        results.initGridPane();
-        results.addTitle();
-        results.addLabels();
-        results.addTextFields();
     
         Button btnCalcul = new Button("Calcul du BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
