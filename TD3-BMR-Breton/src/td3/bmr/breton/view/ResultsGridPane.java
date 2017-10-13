@@ -21,20 +21,18 @@ public class ResultsGridPane {
         results.setVgap(15);
     }
 
+    void addTitle() {
+        Label resultsTitle = new Label("Résultats");
+        resultsTitle.setUnderline(true);
+        results.add(resultsTitle, 0, 0);
+    }
+    
     void addLabels() {
-        addTitle();
-        
         Label lblBMR = new Label("BMR");
         results.add(lblBMR, 0, 1);
         
         Label lblCalories = new Label("Calories");
         results.add(lblCalories, 0, 2);
-    }
-    
-    void addTitle() {
-        Label resultsTitle = new Label("Résultats");
-        resultsTitle.setUnderline(true);
-        results.add(resultsTitle, 0, 0);
     }
     
     void addTextFields() {

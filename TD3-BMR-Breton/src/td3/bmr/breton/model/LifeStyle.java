@@ -1,4 +1,4 @@
-package td3.bmr.breton;
+package td3.bmr.breton.model;
 
 /**
  * This enumeration contains all the life style values.
