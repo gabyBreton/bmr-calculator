@@ -9,15 +9,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +22,8 @@ import javafx.stage.Stage;
 public class BMRCalculator extends Application {
 
     /**
+     * Launch the window of the BMR Calculator.
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -36,9 +32,7 @@ public class BMRCalculator extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Border border =
-               new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3)));
-        
+        //Stage params
         primaryStage.setTitle("Calcul du BMR"); 
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(250);
@@ -46,15 +40,16 @@ public class BMRCalculator extends Application {
         //create layouts
         VBox root = new VBox();      
         root.setPadding(new Insets(6));
-        HBox infosZone = new HBox();
+        
+        HBox infosZone = new HBox(); // zone with user datas & results
         infosZone.setPadding(new Insets(7));
         
-        GridPane datas = new GridPane();
+        GridPane datas = new GridPane(); //datas of user
         datas.setPadding(new Insets(5));
         datas.setHgap(10);
         datas.setVgap(15);
         
-        GridPane results = new GridPane();
+        GridPane results = new GridPane(); //results of calculs
         results.setPadding(new Insets(5));
         results.setHgap(10);
         results.setVgap(15);
@@ -84,25 +79,26 @@ public class BMRCalculator extends Application {
         
         Label lblSex = new Label("Sexe");
         datas.add(lblSex, 0, 4);
-      
+        
+        //create radio button group
         final ToggleGroup groupChoiceSex = new ToggleGroup();
 
         RadioButton rbWomen = new RadioButton("Femme");
-        rbWomen.setToggleGroup(groupChoiceSex);
-        rbWomen.setSelected(true);
-        
         RadioButton rbMen = new RadioButton("Homme");
+        rbWomen.setToggleGroup(groupChoiceSex);
         rbMen.setToggleGroup(groupChoiceSex);
+        rbWomen.setSelected(true);
+
         HBox sexChoice = new HBox(20);
         sexChoice.getChildren().addAll(rbWomen, rbMen);
         datas.add(sexChoice, 1, 4);
         
         Label lblLifeStyle = new Label("Style de vie");
         datas.add(lblLifeStyle, 0, 5);
-
+    
         ChoiceBox cbLifeStyle = new ChoiceBox();
         cbLifeStyle.getItems().addAll(LifeStyle.values());
-        cbLifeStyle.getSelectionModel().selectFirst();;
+        cbLifeStyle.getSelectionModel().selectFirst();
         datas.add(cbLifeStyle, 1, 5);        
         
         //create components for results gridpane
@@ -123,7 +119,7 @@ public class BMRCalculator extends Application {
         TextField tfdCalories = new TextField();
         tfdCalories.setPromptText("Dépenses en calories");
         results.add(tfdCalories, 1, 2);
-        
+    
         Button btnCalcul = new Button("Calcul du BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
         
@@ -135,6 +131,4 @@ public class BMRCalculator extends Application {
         primaryStage.setScene(scene);        
         primaryStage.show();
     }
-    
-   
 }
