@@ -32,4 +32,11 @@ public enum LifeStyle {
     public String getLifeStyle() {
         return lifeStyle;
     }
+    
+    @Override
+    public String toString() {
+            return lifeStyle;
+    }
+    
+    
 }
