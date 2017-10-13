@@ -41,13 +41,13 @@ public class BMRCalculator extends Application {
         
         primaryStage.setTitle("Calcul du BMR"); 
         primaryStage.setMinWidth(400);
-        primaryStage.setMinHeight(300);
+        primaryStage.setMinHeight(250);
         
         //create layouts
         VBox root = new VBox();      
+        root.setPadding(new Insets(6));
         HBox infosZone = new HBox();
-        infosZone.setPadding(new Insets(15));
-        HBox sexChoice = new HBox(20);
+        infosZone.setPadding(new Insets(7));
         
         GridPane datas = new GridPane();
         datas.setPadding(new Insets(5));
@@ -93,9 +93,9 @@ public class BMRCalculator extends Application {
         
         RadioButton rbMen = new RadioButton("Homme");
         rbMen.setToggleGroup(groupChoiceSex);
-        datas.add(sexChoice, 1, 4);
+        HBox sexChoice = new HBox(20);
         sexChoice.getChildren().addAll(rbWomen, rbMen);
-        
+        datas.add(sexChoice, 1, 4);
         
         Label lblLifeStyle = new Label("Style de vie");
         datas.add(lblLifeStyle, 0, 5);
@@ -129,7 +129,6 @@ public class BMRCalculator extends Application {
         
         //add layouts
         infosZone.getChildren().addAll(datas, results);
-        
         root.getChildren().addAll(infosZone, btnCalcul);
         
         Scene scene = new Scene(root);
