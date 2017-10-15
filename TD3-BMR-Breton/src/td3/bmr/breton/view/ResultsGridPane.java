@@ -22,7 +22,7 @@ public class ResultsGridPane {
     }
 
     private void addTitle() {
-        Label resultsTitle = new Label("Résultats");
+        Label resultsTitle = new Label("Results");
         resultsTitle.setUnderline(true);
         results.add(resultsTitle, 0, 0);
     }
@@ -37,11 +37,11 @@ public class ResultsGridPane {
 
     private void addTextFields() {
         TextField tfdBMR = new TextField();
-        tfdBMR.setPromptText("Résultats du BMR");
+        tfdBMR.setPromptText("BMR results");
         results.add(tfdBMR, 1, 1);
 
         TextField tfdCalories = new TextField();
-        tfdCalories.setPromptText("Dépenses en calories");
+        tfdCalories.setPromptText("Calories expenses");
         results.add(tfdCalories, 1, 2);
     }
 

@@ -28,39 +28,39 @@ public class DatasGridPane {
     }
 
     private void addTitle() {
-        Label datasTitle = new Label("Données");
+        Label datasTitle = new Label("Datas");
         datasTitle.setUnderline(true);
         datas.add(datasTitle, 0, 0);        
     }
     
     private void addLabels() {
-        Label lblSize = new Label("Taille (cm)");
+        Label lblSize = new Label("Size (cm)");
         datas.add(lblSize, 0, 1);
         
-        Label lblWeight = new Label("Poids (kg)");
+        Label lblWeight = new Label("Weight (kg)");
         datas.add(lblWeight, 0, 2);
 
-        Label lblAge = new Label("Age (années)");
+        Label lblAge = new Label("Age (years)");
         datas.add(lblAge, 0, 3);        
         
-        Label lblSex = new Label("Sexe");
+        Label lblSex = new Label("Sex");
         datas.add(lblSex, 0, 4);        
         
-        Label lblLifeStyle = new Label("Style de vie");
+        Label lblLifeStyle = new Label("Lifestyle");
         datas.add(lblLifeStyle, 0, 5);
     }
     
     private void addTextFields() {
         TextField tfdSize = new TextField();
-        tfdSize.setPromptText("Taille en cm");
+        tfdSize.setPromptText("Size in cm");
         datas.add(tfdSize, 1, 1);
         
         TextField tfdWeight = new TextField();
-        tfdWeight.setPromptText("Poids en kg");
+        tfdWeight.setPromptText("Weight in kg");
         datas.add(tfdWeight, 1, 2);
         
         TextField tfdAge = new TextField();
-        tfdAge.setPromptText("Age en années");
+        tfdAge.setPromptText("Age in years");
         datas.add(tfdAge, 1, 3);
     }
     
@@ -73,8 +73,8 @@ public class DatasGridPane {
 
     private void addGenderButtons() {
         final ToggleGroup groupChoiceSex = new ToggleGroup();
-        RadioButton rbWomen = new RadioButton("Femme");
-        RadioButton rbMen = new RadioButton("Homme");
+        RadioButton rbWomen = new RadioButton("Women");
+        RadioButton rbMen = new RadioButton("Men");
         
         //put buttons in a group and set selection
         rbWomen.setToggleGroup(groupChoiceSex);
