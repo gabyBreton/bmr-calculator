@@ -23,7 +23,7 @@ public class DatasUI {
     private TextField tfdAge;
     private RadioButton rbMen, rbWomen;
     private ChoiceBox cbLifestyle;
-
+    
     private void initGridPane (){
         datas = new GridPane(); //datas of user
         datas.setPadding(new Insets(5));
@@ -31,6 +31,15 @@ public class DatasUI {
         datas.setVgap(15);  
     }
 
+    void initAndSet() {
+        initGridPane();
+        addTitle();
+        addLabels();
+        addTextFields();
+        addGenderButtons();
+        addLifestyleChoiceBox();
+    }
+    
     private void addTitle() {
         Label datasTitle = new Label("Datas");
         datasTitle.setUnderline(true);
@@ -91,15 +100,6 @@ public class DatasUI {
         datas.add(cbLifestyle, 1, 5);   
     }
 
-    void initAndSet() {
-        initGridPane();
-        addTitle();
-        addLabels();
-        addTextFields();
-        addGenderButtons();
-        addLifestyleChoiceBox();
-    }
-    
     public GridPane getDatas() {
         return datas;
     }

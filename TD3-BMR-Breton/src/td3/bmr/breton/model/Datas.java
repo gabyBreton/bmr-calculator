@@ -16,6 +16,8 @@ public class Datas {
     private static int[] fieldsValues;
     private static boolean women;
     private static double lifestyleValue;
+    private static double bmr;
+    private static double calories;
     
     public static void useDatasFromUser(DatasUI datas) {
         initiliazeFieldsArray();
@@ -83,6 +85,22 @@ public class Datas {
                                 break;
         }
     }
+
+    static double calculateBMR() {
+        if(isWomen()){
+            bmr = (9.6 * getWeight()) + (1.8 * getSize()) - (4.7 * getAge()) 
+                  + 655;
+        } else {
+            bmr = (13.7 * getWeight()) + (5 * getSize()) - (6.8 * getAge())
+                  + 66;
+        }
+        return bmr;
+    }
+    
+    static double calculateCalories() {
+        calories = getBmr() * getLifestyleValue();
+        return calories;
+    }
     
     public static Integer getSize() {
         return size;
@@ -104,6 +122,14 @@ public class Datas {
         return lifestyleValue;
     }
 
+    public static double getBmr() {
+        return bmr;
+    }
+
+    public static double getCalories() {
+        return calories;
+    }
+    
     public static void setAge(Integer age) {
         Datas.age = age;
     }
@@ -123,5 +149,14 @@ public class Datas {
     public static void setLifestyleValue(double lifestyleValue) {
         Datas.lifestyleValue = lifestyleValue;
     }
+
+    public static void setBmr(double bmr) {
+        Datas.bmr = bmr;
+    }
+
+    public static void setCalories(double calories) {
+        Datas.calories = calories;
+    }
+    
     
 }
