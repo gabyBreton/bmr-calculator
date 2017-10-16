@@ -12,7 +12,8 @@ import td3.bmr.breton.model.LifeStyle;
 
 
 /**
- *
+ * This class provides methods to create, init and set the Datas GridPane.
+ * 
  * @author Gabriel Breton - 43397
  */
 public class DatasUI {
@@ -24,13 +25,19 @@ public class DatasUI {
     private RadioButton rbMen, rbWomen;
     private ChoiceBox cbLifestyle;
     
-    private void initGridPane (){
+    /**
+     * Initialize the Datas GridPane.
+     */
+    private void initGridPane() {
         datas = new GridPane(); //datas of user
         datas.setPadding(new Insets(5));
         datas.setHgap(10);
         datas.setVgap(15);  
     }
 
+    /**
+     * Initialize and set the components of the GridPane. 
+     */
     void initAndSet() {
         initGridPane();
         addTitle();
@@ -40,12 +47,18 @@ public class DatasUI {
         addLifestyleChoiceBox();
     }
     
+    /**
+     * Add the title on the GridPane.
+     */
     private void addTitle() {
         Label datasTitle = new Label("Datas");
         datasTitle.setUnderline(true);
         datas.add(datasTitle, 0, 0);        
     }
     
+    /**
+     * Add all the labels on the GridPane.
+     */
     private void addLabels() {
         Label lblSize = new Label("Size (cm)");
         datas.add(lblSize, 0, 1);
@@ -63,6 +76,9 @@ public class DatasUI {
         datas.add(lblLifeStyle, 0, 5);
     }
     
+    /**
+     * Add all the texfields on the GridPane.
+     */
     private void addTextFields() {
         tfdSize = new TextField();
         tfdSize.setPromptText("Size in cm");
@@ -77,6 +93,9 @@ public class DatasUI {
         datas.add(tfdAge, 1, 3);
     }
 
+    /**
+     * Add the gender choice buttons on the GridPane.
+     */
     private void addGenderButtons() {
         final ToggleGroup groupChoiceSex = new ToggleGroup();
         rbWomen = new RadioButton("Women");
@@ -93,6 +112,9 @@ public class DatasUI {
         datas.add(sexChoice, 1, 4);
     }
     
+    /**
+     * Add the lifestyle choice box on the GridPane.
+     */
     private void addLifestyleChoiceBox() {
         cbLifestyle = new ChoiceBox();
         cbLifestyle.getItems().addAll(LifeStyle.values());
@@ -100,34 +122,55 @@ public class DatasUI {
         datas.add(cbLifestyle, 1, 5);   
     }
 
+    /**
+     * Gives the Datas GridPane.
+     * @return the Datas GridPane.
+     */
     public GridPane getDatas() {
         return datas;
     }
 
-//    public void setDatas(GridPane datas) {
-//        this.datas = datas;
-//    }
-
+    /**
+     * Gives the textfield Size.
+     * 
+     * @return the textfield Size.
+     */
     public TextField getTfdSize() {
         return tfdSize;
     }
 
+    /**
+     * Gives the textfield Weight.
+     * 
+     * @return the textfield Weight.
+     */
     public TextField getTfdWeight() {
         return tfdWeight;
     }
 
+    /**
+     * Gives the textfield Age.
+     * 
+     * @return the textfield Age.
+     */
     public TextField getTfdAge() {
         return tfdAge;
     }
 
-    public RadioButton getRbMen() {
-        return rbMen;
-    }
-
+    /**
+     * Gives the radio butto Women.
+     * 
+     * @return the radio button Women.
+     */
     public RadioButton getRbWomen() {
         return rbWomen;
     }
 
+    /**
+     * Gives the choicebox Lifestyle.
+     * 
+     * @return the choicebox lifestyle.
+     */
     public ChoiceBox getCbLifestyle() {
         return cbLifestyle;
     }
