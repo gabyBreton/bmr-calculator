@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author Gabriel Breton - 43397
  */
-public class ResultsGridPane {
+public class ResultsUI {
 
     private GridPane results;
 

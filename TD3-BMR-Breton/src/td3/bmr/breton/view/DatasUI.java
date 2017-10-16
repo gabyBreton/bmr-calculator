@@ -15,10 +15,14 @@ import td3.bmr.breton.model.LifeStyle;
  *
  * @author Gabriel Breton - 43397
  */
-public class DatasGridPane {
+public class DatasUI {
     
     private GridPane datas;
-    
+    private TextField tfdSize;
+    private TextField tfdWeight;
+    private TextField tfdAge;
+    private RadioButton rbMen, rbWomen;
+    private ChoiceBox cbLifeStyle;
 
     private void initGridPane (){
         datas = new GridPane(); //datas of user
@@ -51,21 +55,21 @@ public class DatasGridPane {
     }
     
     private void addTextFields() {
-        TextField tfdSize = new TextField();
+        tfdSize = new TextField();
         tfdSize.setPromptText("Size in cm");
         datas.add(tfdSize, 1, 1);
         
-        TextField tfdWeight = new TextField();
+        tfdWeight = new TextField();
         tfdWeight.setPromptText("Weight in kg");
         datas.add(tfdWeight, 1, 2);
         
-        TextField tfdAge = new TextField();
+        tfdAge = new TextField();
         tfdAge.setPromptText("Age in years");
         datas.add(tfdAge, 1, 3);
     }
     
     private void addLifeStyleChoiceBox() {
-        ChoiceBox cbLifeStyle = new ChoiceBox();
+        cbLifeStyle = new ChoiceBox();
         cbLifeStyle.getItems().addAll(LifeStyle.values());
         cbLifeStyle.getSelectionModel().selectFirst();
         datas.add(cbLifeStyle, 1, 5);   
@@ -73,8 +77,8 @@ public class DatasGridPane {
 
     private void addGenderButtons() {
         final ToggleGroup groupChoiceSex = new ToggleGroup();
-        RadioButton rbWomen = new RadioButton("Women");
-        RadioButton rbMen = new RadioButton("Men");
+        rbWomen = new RadioButton("Women");
+        rbMen = new RadioButton("Men");
         
         //put buttons in a group and set selection
         rbWomen.setToggleGroup(groupChoiceSex);
@@ -100,9 +104,31 @@ public class DatasGridPane {
         return datas;
     }
 
-    public void setDatas(GridPane datas) {
-        this.datas = datas;
+//    public void setDatas(GridPane datas) {
+//        this.datas = datas;
+//    }
+
+    public TextField getTfdSize() {
+        return tfdSize;
     }
-    
-    
+
+    public TextField getTfdWeight() {
+        return tfdWeight;
+    }
+
+    public TextField getTfdAge() {
+        return tfdAge;
+    }
+
+    public RadioButton getRbMen() {
+        return rbMen;
+    }
+
+    public RadioButton getRbWomen() {
+        return rbWomen;
+    }
+
+    public ChoiceBox getCbLifeStyle() {
+        return cbLifeStyle;
+    }
 }
