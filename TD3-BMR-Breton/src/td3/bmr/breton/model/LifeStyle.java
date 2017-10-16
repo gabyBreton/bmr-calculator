@@ -8,7 +8,7 @@ package td3.bmr.breton.model;
 public enum LifeStyle {
     
     SEDENTARY ("Sedentary"),
-    LOW_ACTIV ("Low actif"),
+    LOW_ACTIV ("Low activ"),
     ACTIV ("Activ"),
     VERY_ACTIV ("High activ"),
     EXTREM_ACTIV ("Extremely activ");

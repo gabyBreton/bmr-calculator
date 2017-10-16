@@ -2,7 +2,6 @@ package td3.bmr.breton.view;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import td3.bmr.breton.model.Datas;
-import static td3.bmr.breton.model.Datas.*;
+import td3.bmr.breton.model.Results;
 
 /**
  * This class provides methods to create, set and launch the BMR calculator.
@@ -31,7 +30,13 @@ public class BMRCalculator extends Application {
         launch(args);
     }
 
-    @Override
+    /**
+     * Start the application.
+     * 
+     * @param primaryStage the stage where start the application
+     * @throws Exception 
+     */
+    @Override //FIX-ME: Should use start() only to start the application. 
     public void start(Stage primaryStage) throws Exception {
         //Stage params
         primaryStage.setTitle("BMR Calculator"); 
@@ -53,19 +58,11 @@ public class BMRCalculator extends Application {
     
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
-        btnCalcul.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                Datas.useDatasFromUser(datas);
-                Integer age = Datas.getAge();
-                Integer size = Datas.getSize();
-                Integer weight = Datas.getWeight();
-                boolean isWomen = Datas.isWomen();
-                double lsVal = Datas.getLifestyleValue();
-                
-                System.out.println(age + "-" + size + "-" + weight + "-" + isWomen + "-" + lsVal);
-            }});
+        
+        btnCalcul.setOnAction((ActionEvent event) -> {
+            Datas.useDatasFromUser(datas);
+            Results.giveResultsToFields(results);
+        });
         
         //add layouts
         infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
@@ -74,14 +71,5 @@ public class BMRCalculator extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);        
         primaryStage.show();
-    }
-
-    
-    public DatasUI getDatas() {
-        return datas;
-    }
-
-    public ResultsUI getResults() {
-        return results;
     }
 }
