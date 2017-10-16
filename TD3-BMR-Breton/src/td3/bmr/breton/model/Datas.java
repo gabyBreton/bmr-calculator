@@ -13,33 +13,35 @@ public class Datas {
     private static Integer age;
     private static Integer size;
     private static Integer weight;
-    private static int[] fields;
-//    private RadioButton rbMen, rbWomen;
-//  private ChoiceBox cbLifeStyle;
+    private static int[] fieldsValues;
+    private static boolean women;
+    private static double lifestyleValue;
     
-    public static void useDatasInFields(DatasUI datas) {
+    public static void useDatasFromUser(DatasUI datas) {
         initiliazeFieldsArray();
         verifyIntTextFieldInput(datas.getTfdSize(), 0);
         verifyIntTextFieldInput(datas.getTfdWeight(), 1);
         verifyIntTextFieldInput(datas.getTfdAge(), 2);
-        assignFieldsValues(fields);
+        assignFieldsValues(fieldsValues);
+        getSelectedGender(datas.getRbWomen());
+        getSelectedLifeStyleValue(datas.getCbLifestyle());
     }
 
-    private static void verifyIntTextFieldInput(TextField textField, int field) {
+    private static void verifyIntTextFieldInput(TextField textField, int field){
         String input;
         input = textField.getText();
         
         if (isNumeric(input)) {
-            fields[field] = Integer.valueOf(input); //field should be verified.
+            fieldsValues[field] = Integer.valueOf(input); //field should be verified.
         } else {
             System.out.println(input + " is not numeric.");
         }
     }
 
     private static void initiliazeFieldsArray() {
-        fields =  new int[3];
-        for(int i = 0; i < fields.length; i++) {
-            fields[i] = 0;
+        fieldsValues =  new int[3];
+        for(int i = 0; i < fieldsValues.length; i++) {
+            fieldsValues[i] = 0;
         }
     }
     private static void assignFieldsValues(int[] fields) {
@@ -56,9 +58,33 @@ public class Datas {
         }
         return true;
     }
+
+    private static void getSelectedGender(RadioButton rbWomen) {
+        setWomen(rbWomen.isSelected());
+    }
+
+    private static void getSelectedLifeStyleValue(ChoiceBox cbLifestyle) {
+        LifeStyle lifestyle;
+        lifestyle=(LifeStyle) cbLifestyle.getSelectionModel().getSelectedItem();
+        assignLifestyleValue(lifestyle);
+    }
+    
+    private static void assignLifestyleValue(LifeStyle lifeStyle) { //TODO VERIF IF GOOD VALUES
+	switch (lifeStyle) {
+	    case SEDENTARY : setLifestyleValue(1.2);
+                             break;
+	    case LOW_ACTIV : setLifestyleValue(1.375);
+                             break;
+	    case ACTIV : setLifestyleValue(1.55);
+	                 break;
+	    case VERY_ACTIV : setLifestyleValue(1.725);
+                              break;
+	    case EXTREM_ACTIV : setLifestyleValue(1.9);
+                                break;
+        }
+    }
     
     public static Integer getSize() {
-        
         return size;
     }
 
@@ -68,6 +94,14 @@ public class Datas {
 
     public static Integer getAge() {
         return age;
+    }
+
+    public static boolean isWomen() {
+        return women;
+    }
+
+    public static double getLifestyleValue() {
+        return lifestyleValue;
     }
 
     public static void setAge(Integer age) {
@@ -81,6 +115,13 @@ public class Datas {
     public static void setWeight(Integer weight) {
         Datas.weight = weight;
     }
-    
+
+    public static void setWomen(boolean women) {
+        Datas.women = women;
+    }
+
+    public static void setLifestyleValue(double lifestyleValue) {
+        Datas.lifestyleValue = lifestyleValue;
+    }
     
 }

@@ -57,12 +57,14 @@ public class BMRCalculator extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                Datas.useDatasInFields(datas);
+                Datas.useDatasFromUser(datas);
                 Integer age = Datas.getAge();
                 Integer size = Datas.getSize();
                 Integer weight = Datas.getWeight();
+                boolean isWomen = Datas.isWomen();
+                double lsVal = Datas.getLifestyleValue();
                 
-                System.out.println(age + "-" + size + "-" + weight);
+                System.out.println(age + "-" + size + "-" + weight + "-" + isWomen + "-" + lsVal);
             }});
         
         //add layouts
@@ -82,6 +84,4 @@ public class BMRCalculator extends Application {
     public ResultsUI getResults() {
         return results;
     }
-    
-    
 }

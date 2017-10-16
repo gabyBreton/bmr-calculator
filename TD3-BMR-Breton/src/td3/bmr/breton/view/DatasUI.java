@@ -22,7 +22,7 @@ public class DatasUI {
     private TextField tfdWeight;
     private TextField tfdAge;
     private RadioButton rbMen, rbWomen;
-    private ChoiceBox cbLifeStyle;
+    private ChoiceBox cbLifestyle;
 
     private void initGridPane (){
         datas = new GridPane(); //datas of user
@@ -67,13 +67,6 @@ public class DatasUI {
         tfdAge.setPromptText("Age in years");
         datas.add(tfdAge, 1, 3);
     }
-    
-    private void addLifeStyleChoiceBox() {
-        cbLifeStyle = new ChoiceBox();
-        cbLifeStyle.getItems().addAll(LifeStyle.values());
-        cbLifeStyle.getSelectionModel().selectFirst();
-        datas.add(cbLifeStyle, 1, 5);   
-    }
 
     private void addGenderButtons() {
         final ToggleGroup groupChoiceSex = new ToggleGroup();
@@ -90,6 +83,13 @@ public class DatasUI {
         sexChoice.getChildren().addAll(rbWomen, rbMen);
         datas.add(sexChoice, 1, 4);
     }
+    
+    private void addLifestyleChoiceBox() {
+        cbLifestyle = new ChoiceBox();
+        cbLifestyle.getItems().addAll(LifeStyle.values());
+        cbLifestyle.getSelectionModel().selectFirst();
+        datas.add(cbLifestyle, 1, 5);   
+    }
 
     void initAndSet() {
         initGridPane();
@@ -97,7 +97,7 @@ public class DatasUI {
         addLabels();
         addTextFields();
         addGenderButtons();
-        addLifeStyleChoiceBox();
+        addLifestyleChoiceBox();
     }
     
     public GridPane getDatas() {
@@ -128,7 +128,7 @@ public class DatasUI {
         return rbWomen;
     }
 
-    public ChoiceBox getCbLifeStyle() {
-        return cbLifeStyle;
+    public ChoiceBox getCbLifestyle() {
+        return cbLifestyle;
     }
 }
