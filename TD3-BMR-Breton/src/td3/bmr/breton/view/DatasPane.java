@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import td3.bmr.breton.model.LifeStyle;
+import td3.bmr.breton.model.Lifestyle;
 
 
 /**
@@ -16,14 +16,30 @@ import td3.bmr.breton.model.LifeStyle;
  * 
  * @author Gabriel Breton - 43397
  */
-public class DatasUI {
+public class DatasPane {
     
     private GridPane datas;
-    private TextField tfdSize;
-    private TextField tfdWeight;
-    private TextField tfdAge;
+    private TextField height;
+    private TextField weight;
+    private TextField age;
     private RadioButton rbMen, rbWomen;
     private ChoiceBox cbLifestyle;
+
+    public DatasPane() {
+        initAndSet();
+    }
+    
+    /**
+     * Initialize and set the components of the GridPane. 
+     */
+    private void initAndSet() {
+        initGridPane();
+        addTitle();
+        addLabels();
+        addTextFields();
+        addGenderButtons();
+        addLifestyleChoiceBox();
+    }
     
     /**
      * Initialize the Datas GridPane.
@@ -33,18 +49,6 @@ public class DatasUI {
         datas.setPadding(new Insets(5));
         datas.setHgap(10);
         datas.setVgap(15);  
-    }
-
-    /**
-     * Initialize and set the components of the GridPane. 
-     */
-    void initAndSet() {
-        initGridPane();
-        addTitle();
-        addLabels();
-        addTextFields();
-        addGenderButtons();
-        addLifestyleChoiceBox();
     }
     
     /**
@@ -80,17 +84,17 @@ public class DatasUI {
      * Add all the texfields on the GridPane.
      */
     private void addTextFields() {
-        tfdSize = new TextField();
-        tfdSize.setPromptText("Size in cm");
-        datas.add(tfdSize, 1, 1);
+        height = new TextField();
+        height.setPromptText("Size in cm");
+        datas.add(height, 1, 1);
         
-        tfdWeight = new TextField();
-        tfdWeight.setPromptText("Weight in kg");
-        datas.add(tfdWeight, 1, 2);
+        weight = new TextField();
+        weight.setPromptText("Weight in kg");
+        datas.add(weight, 1, 2);
         
-        tfdAge = new TextField();
-        tfdAge.setPromptText("Age in years");
-        datas.add(tfdAge, 1, 3);
+        age = new TextField();
+        age.setPromptText("Age in years");
+        datas.add(age, 1, 3);
     }
 
     /**
@@ -117,7 +121,7 @@ public class DatasUI {
      */
     private void addLifestyleChoiceBox() {
         cbLifestyle = new ChoiceBox();
-        cbLifestyle.getItems().addAll(LifeStyle.values());
+        cbLifestyle.getItems().addAll(Lifestyle.values());
         cbLifestyle.getSelectionModel().selectFirst();
         datas.add(cbLifestyle, 1, 5);   
     }
@@ -131,22 +135,40 @@ public class DatasUI {
         return datas;
     }
 
+//    /**
+//     * Gives the textfield Size.
+//     * 
+//     * @return the textfield Size.
+//     */
+//    public TextField getHeight() {
+//        return height;
+//    } 
+//   
     /**
      * Gives the textfield Size.
      * 
      * @return the textfield Size.
      */
-    public TextField getTfdSize() {
-        return tfdSize;
+    public int getHeight() {
+        return Integer.valueOf(height.getText());
     }
-
+//
+//    /**
+//     * Gives the textfield Weight.
+//     * 
+//     * @return the textfield Weight.
+//     */
+//    public TextField getWeight() {
+//        return weight;
+//    }
+    
     /**
-     * Gives the textfield Weight.
+     * Gives the value of weight.
      * 
-     * @return the textfield Weight.
+     * @return the value of weight.
      */
-    public TextField getTfdWeight() {
-        return tfdWeight;
+    public int getWeight() {
+        return Integer.valueOf(weight.getText());
     }
 
     /**
@@ -154,12 +176,12 @@ public class DatasUI {
      * 
      * @return the textfield Age.
      */
-    public TextField getTfdAge() {
-        return tfdAge;
+    public int getAge() {
+        return Integer.valueOf(age.getText());
     }
 
     /**
-     * Gives the radio butto Women.
+     * Gives the radio button Women.
      * 
      * @return the radio button Women.
      */

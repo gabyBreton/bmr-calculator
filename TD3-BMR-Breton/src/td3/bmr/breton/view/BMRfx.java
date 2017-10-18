@@ -8,18 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import td3.bmr.breton.model.Datas;
-import td3.bmr.breton.model.Results;
+import td3.bmr.breton.model.BMRCalculator;
 
 /**
  * This class provides methods to create, set and launch the BMR calculator.
  * 
  * @author Gabriel Breton - 43397
  */
-public class BMRCalculator extends Application {
+public class BMRfx extends Application {
 
-    private DatasUI datas;
-    private ResultsUI results;
+    private DatasPane datas;
+    private ResultsPane results;
     
     /**
      * Launch the window of the BMR Calculator.
@@ -50,18 +49,18 @@ public class BMRCalculator extends Application {
         HBox infosBox = new HBox(); // zone with user datas & results
         infosBox.setPadding(new Insets(7));
         
-        datas = new DatasUI(); //datas zone of user
-        results = new ResultsUI();//results zone of user
+        datas = new DatasPane(); //datas zone of user
+        results = new ResultsPane();//results zone of user
 
-        datas.initAndSet();
-        results.initAndSet();
+        //datas.initAndSet();
+      //  results.initAndSet();
     
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
         
         btnCalcul.setOnAction((ActionEvent event) -> {
-            Datas.useDatasFromUser(datas);
-            Results.giveResultsToFields(results);
+            BMRCalculator.useDatasFromUser(datas);
+            BMRCalculator.giveResultsToFields(results);
         });
         
         //add layouts

@@ -5,7 +5,7 @@ package td3.bmr.breton.model;
  * 
  * @author Gabriel Breton - 43397
  */
-public enum LifeStyle {
+public enum Lifestyle {
     
     SEDENTARY ("Sedentary"),
     LOW_ACTIV ("Low activ"),
@@ -20,7 +20,7 @@ public enum LifeStyle {
      * 
      * @param lifeStyle 
      */
-    LifeStyle (String lifeStyle) {
+    Lifestyle (String lifeStyle) {
         this.lifeStyle = lifeStyle;
     }
     

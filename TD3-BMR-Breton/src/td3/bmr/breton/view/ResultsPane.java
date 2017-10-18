@@ -10,11 +10,25 @@ import javafx.scene.layout.GridPane;
  *
  * @author Gabriel Breton - 43397
  */
-public class ResultsUI {
+public class ResultsPane {
 
     private GridPane results;
     private TextField tfdBMR;
     private TextField tfdCalories;
+
+    public ResultsPane() {
+        initAndSet();
+    }
+
+    /**
+     * Initialize and set the components of the GridPane.
+     */
+    private void initAndSet() {
+        initGridPane();
+        addTitle();
+        addLabels();
+        addTextFields();
+    }
     
     /**
      * Initialize the Results GridPane.
@@ -24,16 +38,6 @@ public class ResultsUI {
         results.setPadding(new Insets(5));
         results.setHgap(10);
         results.setVgap(15);
-    }
-
-    /**
-     * Initialize and set the components of the GridPane.
-     */
-    void initAndSet() {
-        initGridPane();
-        addTitle();
-        addLabels();
-        addTextFields();
     }
     
     /**

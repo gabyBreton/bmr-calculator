@@ -3,29 +3,32 @@ package td3.bmr.breton.model;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import td3.bmr.breton.view.DatasUI;
+import td3.bmr.breton.view.DatasPane;
+import td3.bmr.breton.view.ResultsPane;
 
 /**
  * This class provides methods to manage the user inputs.
  * 
  * @author Gabriel Breton - 43397
  */
-public class Datas {
-    private static Integer age;
-    private static Integer size;
-    private static Integer weight;
+public class BMRCalculator {
+    private static int age;
+    private static int size;
+    private static int weight;
     private static int[] fieldsValues;
     private static boolean women;
     private static double lifestyleValue;
     private static double bmr;
     private static double calories;
+    private static String bmrString;
+    private static String caloriesString;
    
     /**
      * Uses the datas of the user to be able to calculate the BMR and calories.
      * 
      * @param datas the datas inputs.
      */
-    public static void useDatasFromUser(DatasUI datas) {
+    public static void useDatasFromUser(DatasPane datas) {
         initiliazeFieldsArray();
         if(verifyIntInput(datas)) {
             assignFieldsValues(fieldsValues);
@@ -40,12 +43,14 @@ public class Datas {
      * @param datas the datas to verify.
      * @return true if the inputs verified are all integer, else false.
      */
-    private static boolean verifyIntInput(DatasUI datas) {
-        return verifyIntTextFieldInput(datas.getTfdAge(), 2) 
-                && verifyIntTextFieldInput(datas.getTfdWeight(), 1)
-                && verifyIntTextFieldInput(datas.getTfdSize(), 0);
+    private static boolean verifyIntInput(DatasPane datas) {
+        return verifyIntTextFieldInput(datas.getAge(), 2) 
+                && verifyIntTextFieldInput(datas.getWeight(), 1)
+                && verifyIntTextFieldInput(datas.getHeight(), 0);
     }
 
+    
+    
     /**
      * Verify if a textfield contains an integer. Recuperates this integer, if 
      * it is not an integer, set the textfield with an error message.
@@ -55,7 +60,8 @@ public class Datas {
      * textfield in an array.
      * @return true if the content of the textfield is an integer.
      */
-    private static boolean verifyIntTextFieldInput(TextField textField, int field){
+    private static boolean verifyIntTextFieldInput(TextField textField, 
+                                                   int field){
         String input;
         boolean numeric;
         input = textField.getText();
@@ -124,8 +130,8 @@ public class Datas {
      * @param cbLifestyle the choicebox of the lifestyle.
      */
     private static void getSelectedLifeStyleValue(ChoiceBox cbLifestyle) {
-        LifeStyle lifestyle;
-        lifestyle=(LifeStyle) cbLifestyle.getSelectionModel().getSelectedItem();
+        Lifestyle lifestyle;
+        lifestyle=(Lifestyle) cbLifestyle.getSelectionModel().getSelectedItem();
         assignLifestyleValue(lifestyle);
     }
     
@@ -134,7 +140,7 @@ public class Datas {
      * 
      * @param lifeStyle the lifestyle to assign the corresponding value.
      */
-    private static void assignLifestyleValue(LifeStyle lifeStyle) { 
+    private static void assignLifestyleValue(Lifestyle lifeStyle) { 
 	switch (lifeStyle) {
 	    case SEDENTARY : setLifestyleValue(1.2);
                              break;
@@ -174,7 +180,20 @@ public class Datas {
         calories = getBmr() * getLifestyleValue();
         return calories;
     }
-    
+ 
+    /**
+     * Set the values of the textfields for the results of the calculations of
+     * BMR and calories.
+     *
+     * @param results the Results GridPane where to show the results of the
+     * calculations.
+     */
+    public static void giveResultsToFields(ResultsPane results) {
+        bmrString = Double.toString(BMRCalculator.calculateBMR());
+        caloriesString = Double.toString(BMRCalculator.calculateCalories());
+        results.getTfdBMR().setText(bmrString);
+        results.getTfdCalories().setText(caloriesString);
+    }
     /**
      * Gives the size.
      * 
@@ -244,7 +263,7 @@ public class Datas {
      * @param age the age to set.
      */
     public static void setAge(Integer age) {
-        Datas.age = age;
+        BMRCalculator.age = age;
     }
 
     /**
@@ -253,7 +272,7 @@ public class Datas {
      * @param size the size value.
      */
     public static void setSize(Integer size) {
-        Datas.size = size;
+        BMRCalculator.size = size;
     }
 
     /**
@@ -262,7 +281,7 @@ public class Datas {
      * @param weight the weight to set.
      */
     public static void setWeight(Integer weight) {
-        Datas.weight = weight;
+        BMRCalculator.weight = weight;
     }
 
     /**
@@ -271,7 +290,7 @@ public class Datas {
      * @param women the boolean to set.
      */
     public static void setWomen(boolean women) {
-        Datas.women = women;
+        BMRCalculator.women = women;
     }
 
     /**
@@ -280,6 +299,8 @@ public class Datas {
      * @param lifestyleValue the value to set.
      */
     public static void setLifestyleValue(double lifestyleValue) {
-        Datas.lifestyleValue = lifestyleValue;
+        BMRCalculator.lifestyleValue = lifestyleValue;
     }
+
+
 }
