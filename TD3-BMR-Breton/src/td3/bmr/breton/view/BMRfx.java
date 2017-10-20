@@ -33,10 +33,11 @@ public class BMRfx extends Application {
      * Start the application.
      *
      * @param primaryStage the stage where start the application
-     * @throws Exception
+     * @throws NumberFormatException if a entered datas is not a string 
+     * representing a number.
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws NumberFormatException {
         primaryStage.setTitle("BMR Calculator");
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(250);
