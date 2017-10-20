@@ -10,14 +10,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import td3.bmr.breton.model.Lifestyle;
 
-
 /**
  * This class provides methods to create, init and set the Datas GridPane.
- * 
+ *
  * @author Gabriel Breton - 43397
  */
 public class DatasPane {
-    
+
     private GridPane datas;
     private TextField height;
     private TextField weight;
@@ -28,9 +27,9 @@ public class DatasPane {
     public DatasPane() {
         initAndSet();
     }
-    
+
     /**
-     * Initialize and set the components of the GridPane. 
+     * Initialize and set the components of the GridPane.
      */
     private void initAndSet() {
         initGridPane();
@@ -40,7 +39,7 @@ public class DatasPane {
         addGenderButtons();
         addLifestyleChoiceBox();
     }
-    
+
     /**
      * Initialize the Datas GridPane.
      */
@@ -48,38 +47,38 @@ public class DatasPane {
         datas = new GridPane(); //datas of user
         datas.setPadding(new Insets(5));
         datas.setHgap(10);
-        datas.setVgap(15);  
+        datas.setVgap(15);
     }
-    
+
     /**
      * Add the title on the GridPane.
      */
     private void addTitle() {
         Label datasTitle = new Label("Datas");
         datasTitle.setUnderline(true);
-        datas.add(datasTitle, 0, 0);        
+        datas.add(datasTitle, 0, 0);
     }
-    
+
     /**
      * Add all the labels on the GridPane.
      */
     private void addLabels() {
         Label lblSize = new Label("Size (cm)");
         datas.add(lblSize, 0, 1);
-        
+
         Label lblWeight = new Label("Weight (kg)");
         datas.add(lblWeight, 0, 2);
 
         Label lblAge = new Label("Age (years)");
-        datas.add(lblAge, 0, 3);        
-        
+        datas.add(lblAge, 0, 3);
+
         Label lblSex = new Label("Sex");
-        datas.add(lblSex, 0, 4);        
-        
+        datas.add(lblSex, 0, 4);
+
         Label lblLifeStyle = new Label("Lifestyle");
         datas.add(lblLifeStyle, 0, 5);
     }
-    
+
     /**
      * Add all the texfields on the GridPane.
      */
@@ -87,11 +86,11 @@ public class DatasPane {
         height = new TextField();
         height.setPromptText("Size in cm");
         datas.add(height, 1, 1);
-        
+
         weight = new TextField();
         weight.setPromptText("Weight in kg");
         datas.add(weight, 1, 2);
-        
+
         age = new TextField();
         age.setPromptText("Age in years");
         datas.add(age, 1, 3);
@@ -104,18 +103,18 @@ public class DatasPane {
         final ToggleGroup groupChoiceSex = new ToggleGroup();
         rbWomen = new RadioButton("Women");
         rbMen = new RadioButton("Men");
-        
+
         //put buttons in a group and set selection
         rbWomen.setToggleGroup(groupChoiceSex);
         rbMen.setToggleGroup(groupChoiceSex);
         rbWomen.setSelected(true);
-        
+
         //put buttons in a box and add box in datas.
         HBox sexChoice = new HBox(20);
         sexChoice.getChildren().addAll(rbWomen, rbMen);
         datas.add(sexChoice, 1, 4);
     }
-    
+
     /**
      * Add the lifestyle choice box on the GridPane.
      */
@@ -123,48 +122,30 @@ public class DatasPane {
         cbLifestyle = new ChoiceBox();
         cbLifestyle.getItems().addAll(Lifestyle.values());
         cbLifestyle.getSelectionModel().selectFirst();
-        datas.add(cbLifestyle, 1, 5);   
+        datas.add(cbLifestyle, 1, 5);
     }
 
     /**
      * Gives the Datas GridPane.
-     * 
+     *
      * @return the Datas GridPane.
      */
     public GridPane getDatas() {
         return datas;
     }
 
-//    /**
-//     * Gives the textfield Size.
-//     * 
-//     * @return the textfield Size.
-//     */
-//    public TextField getHeight() {
-//        return height;
-//    } 
-//   
     /**
      * Gives the textfield Size.
-     * 
+     *
      * @return the textfield Size.
      */
     public int getHeight() {
         return Integer.valueOf(height.getText());
     }
-//
-//    /**
-//     * Gives the textfield Weight.
-//     * 
-//     * @return the textfield Weight.
-//     */
-//    public TextField getWeight() {
-//        return weight;
-//    }
-    
+
     /**
      * Gives the value of weight.
-     * 
+     *
      * @return the value of weight.
      */
     public int getWeight() {
@@ -173,7 +154,7 @@ public class DatasPane {
 
     /**
      * Gives the textfield Age.
-     * 
+     *
      * @return the textfield Age.
      */
     public int getAge() {
@@ -182,7 +163,7 @@ public class DatasPane {
 
     /**
      * Gives the radio button Women.
-     * 
+     *
      * @return the radio button Women.
      */
     public RadioButton getRbWomen() {
@@ -191,7 +172,7 @@ public class DatasPane {
 
     /**
      * Gives the choicebox Lifestyle.
-     * 
+     *
      * @return the choicebox lifestyle.
      */
     public ChoiceBox getCbLifestyle() {
