@@ -29,7 +29,7 @@ public class ResultsPane {
         addLabels();
         addTextFields();
     }
-    
+
     /**
      * Initialize the Results GridPane.
      */
@@ -39,10 +39,10 @@ public class ResultsPane {
         results.setHgap(10);
         results.setVgap(15);
     }
-    
+
     /**
      * Add the title on the GridPane.
-     */    
+     */
     private void addTitle() {
         Label resultsTitle = new Label("Results");
         resultsTitle.setUnderline(true);
@@ -72,31 +72,55 @@ public class ResultsPane {
         tfdCalories.setPromptText("Calories expenses");
         results.add(tfdCalories, 1, 2);
     }
-    
+
     /**
-     * Gives the Results GridPane.
-     * 
-     * @return the Results GridPane.
+     * Gives the results GridPane.
+     *
+     * @return the results GridPane.
      */
     public GridPane getResults() {
         return results;
     }
 
     /**
-     * Gives the textfield BMR.
-     * 
-     * @return the textfield BMR.
+     * Set the BMR textfield.
+     *
+     * @param bmr the value of bmr.
      */
-    public TextField getTfdBMR() {
-        return tfdBMR;
+    public void setBMR(Double bmr) {
+        tfdBMR.setStyle("-fx-text-inner-color: black;");
+        long roundedBMR = Math.round(bmr);
+        tfdBMR.setText(Double.toString(roundedBMR));
     }
 
     /**
-     * Gives the textfield Calories.
-     * 
-     * @return the textfield Calories.
+     * Set the calories textfield.
+     *
+     * @param calories the value of calories.
      */
-    public TextField getTfdCalories() {
-        return tfdCalories;
+    public void setCalories(Double calories) {
+        tfdCalories.setStyle("-fx-text-inner-color: black;");
+        long roundedCalories = Math.round(calories);
+        tfdCalories.setText(Long.toString(roundedCalories));
+    }
+
+    /**
+     * Set an red error message in the BMR field.
+     *
+     * @param BMRString The error message.
+     */
+    public void setErrorTfdBMR(String BMRString) {
+        tfdBMR.setStyle("-fx-text-inner-color: red;");
+        tfdBMR.setText(BMRString);
+    }
+
+    /**
+     * Set an red error message in the calories field.
+     *
+     * @param caloriesString The error message.
+     */
+    public void setErrorTfdCalories(String caloriesString) {
+        tfdCalories.setStyle("-fx-text-inner-color: red;");
+        tfdCalories.setText(caloriesString);
     }
 }

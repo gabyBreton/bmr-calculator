@@ -139,8 +139,8 @@ public class DatasPane {
      *
      * @return the textfield Size.
      */
-    public int getHeight() {
-        return Integer.valueOf(height.getText());
+    public double getHeight() {
+        return Double.valueOf(height.getText());
     }
 
     /**
@@ -148,8 +148,8 @@ public class DatasPane {
      *
      * @return the value of weight.
      */
-    public int getWeight() {
-        return Integer.valueOf(weight.getText());
+    public double getWeight() {
+        return Double.valueOf(weight.getText());
     }
 
     /**
@@ -157,8 +157,8 @@ public class DatasPane {
      *
      * @return the textfield Age.
      */
-    public int getAge() {
-        return Integer.valueOf(age.getText());
+    public double getAge() {
+        return Double.valueOf(age.getText());
     }
 
     /**

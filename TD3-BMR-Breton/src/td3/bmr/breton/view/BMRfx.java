@@ -16,7 +16,7 @@ import td3.bmr.breton.model.BMRCalculator;
  * @author Gabriel Breton - 43397
  */
 public class BMRfx extends Application {
-    
+
     private DatasPane datas;
     private ResultsPane results;
 
@@ -35,24 +35,24 @@ public class BMRfx extends Application {
      * @param primaryStage the stage where start the application
      * @throws Exception
      */
-    @Override 
+    @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("BMR Calculator");        
+        primaryStage.setTitle("BMR Calculator");
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(250);
 
-        VBox root = new VBox();        
+        VBox root = new VBox();
         root.setPadding(new Insets(6));
-        
+
         HBox infosBox = new HBox(); // zone with user datas & results
         infosBox.setPadding(new Insets(7));
-        
+
         datas = new DatasPane(); //datas zone of user
         results = new ResultsPane();//results zone of user
 
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
-        
+
         btnCalcul.setOnAction((ActionEvent event) -> {
             try {
                 BMRCalculator.setHeight(datas.getHeight());
@@ -70,9 +70,9 @@ public class BMRfx extends Application {
 
         infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
         root.getChildren().addAll(infosBox, btnCalcul);
-        
+
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);        
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 }
