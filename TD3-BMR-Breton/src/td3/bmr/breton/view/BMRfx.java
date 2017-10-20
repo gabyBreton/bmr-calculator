@@ -12,17 +12,17 @@ import td3.bmr.breton.model.BMRCalculator;
 
 /**
  * This class provides methods to create, set and launch the BMR calculator.
- * 
+ *
  * @author Gabriel Breton - 43397
  */
 public class BMRfx extends Application {
-
+    
     private DatasPane datas;
     private ResultsPane results;
-    
+
     /**
      * Launch the window of the BMR Calculator.
-     * 
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -31,19 +31,17 @@ public class BMRfx extends Application {
 
     /**
      * Start the application.
-     * 
+     *
      * @param primaryStage the stage where start the application
-     * @throws Exception 
+     * @throws Exception
      */
-    @Override //FIX-ME: Should use start() only to start the application. 
+    @Override 
     public void start(Stage primaryStage) throws Exception {
-        //Stage params
-        primaryStage.setTitle("BMR Calculator"); 
+        primaryStage.setTitle("BMR Calculator");        
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(250);
-        
-        //create layouts
-        VBox root = new VBox();      
+
+        VBox root = new VBox();        
         root.setPadding(new Insets(6));
         
         HBox infosBox = new HBox(); // zone with user datas & results
@@ -52,18 +50,24 @@ public class BMRfx extends Application {
         datas = new DatasPane(); //datas zone of user
         results = new ResultsPane();//results zone of user
 
-        //datas.initAndSet();
-      //  results.initAndSet();
-    
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
         
         btnCalcul.setOnAction((ActionEvent event) -> {
-            BMRCalculator.useDatasFromUser(datas);
-            BMRCalculator.giveResultsToFields(results);
+            try {
+                BMRCalculator.setHeight(datas.getHeight());
+                BMRCalculator.setWeight(datas.getWeight());
+                BMRCalculator.setAge(datas.getAge());
+                BMRCalculator.setGender(datas.getRbWomen());
+                BMRCalculator.setLifestyle(datas.getCbLifestyle());
+                results.setBMR(BMRCalculator.getBmr());
+                results.setCalories(BMRCalculator.getCalories());
+            } catch (NumberFormatException nbrException) {
+                results.setErrorTfdBMR("Failed !");
+                results.setErrorTfdCalories("Failed !");
+            }
         });
-        
-        //add layouts
+
         infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
         root.getChildren().addAll(infosBox, btnCalcul);
         
