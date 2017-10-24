@@ -105,11 +105,19 @@ public class ResultsPane {
     }
 
     /**
+     * Set the error messages in the results fields.
+     */
+    void showErrorsMessages() {
+        setErrorTfdBMR("Failed !");
+        setErrorTfdCalories("Failed !");
+    }
+
+    /**
      * Set an red error message in the BMR field.
      *
      * @param BMRString The error message.
      */
-    void setErrorTfdBMR(String BMRString) {
+    private void setErrorTfdBMR(String BMRString) {
         tfdBMR.setStyle("-fx-text-inner-color: red;");
         tfdBMR.setText(BMRString);
     }
@@ -119,11 +127,14 @@ public class ResultsPane {
      *
      * @param caloriesString The error message.
      */
-    void setErrorTfdCalories(String caloriesString) {
+    private void setErrorTfdCalories(String caloriesString) {
         tfdCalories.setStyle("-fx-text-inner-color: red;");
         tfdCalories.setText(caloriesString);
     }
-    
+
+    /**
+     * Clear the results fields.
+     */
     void clearAllFields() {
         tfdBMR.clear();
         tfdCalories.clear();

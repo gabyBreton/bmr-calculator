@@ -178,7 +178,10 @@ class DatasPane {
     ChoiceBox getCbLifestyle() {
         return cbLifestyle;
     }
-    
+
+    /**
+     * Clear the datas fields.
+     */
     void clearAllFields() {
         height.clear();
         weight.clear();

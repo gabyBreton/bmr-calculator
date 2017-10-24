@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -59,33 +61,52 @@ public class BMRfx extends Application {
 
         HBox infosBox = new HBox(); // zone with user datas & results
         infosBox.setPadding(new Insets(7));
-        
+
         datas = new DatasPane(); //datas zone of user
         results = new ResultsPane();//results zone of user
-        
+
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction((ActionEvent t) -> {
             System.exit(0);
         });
-        
+
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
 
         Button btnClear = new Button("Clear");
         btnClear.setMaxWidth(Double.MAX_VALUE);
-
+        
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Encoding error");
+        alert.setContentText("Enter a value strictly superior to zero.");        
+        
         btnCalcul.setOnAction((ActionEvent event) -> {
             try {
                 BMRCalculator.setHeight(datas.getHeight());
+            } catch (NumberFormatException nbrException) {
+                alert.setHeaderText("Value of the height incorrect.");
+                alert.showAndWait();
+                results.showErrorsMessages();
+            }
+
+            try {
                 BMRCalculator.setWeight(datas.getWeight());
+            } catch (NumberFormatException nbrException) {
+                alert.setHeaderText("Value of the weight incorrect.");
+                alert.showAndWait();
+                results.showErrorsMessages();
+            }
+
+            try {
                 BMRCalculator.setAge(datas.getAge());
                 BMRCalculator.setGender(datas.getRbWomen());
                 BMRCalculator.setLifestyle(datas.getCbLifestyle());
                 results.setBMR(BMRCalculator.getBmr());
                 results.setCalories(BMRCalculator.getCalories());
             } catch (NumberFormatException nbrException) {
-                results.setErrorTfdBMR("Failed !");
-                results.setErrorTfdCalories("Failed !");
+                alert.setHeaderText("Value of the age incorrect.");
+                alert.showAndWait();
+                results.showErrorsMessages();
             }
         });
 
