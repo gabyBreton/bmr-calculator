@@ -2,9 +2,13 @@ package td3.bmr.breton.view;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -33,7 +37,7 @@ public class BMRfx extends Application {
      * Start the application.
      *
      * @param primaryStage the stage where start the application
-     * @throws NumberFormatException if a entered datas is not a string 
+     * @throws NumberFormatException if a entered datas is not a string
      * representing a number.
      */
     @Override
@@ -43,23 +47,33 @@ public class BMRfx extends Application {
         primaryStage.setMinHeight(250);
 
         VBox root = new VBox();
-        root.setPadding(new Insets(6));
 
-        VBox menuButtons = new VBox();
-        menuButtons.setSpacing(11);
-        
+        VBox rootScene = new VBox();
+        rootScene.setPadding(new Insets(6));
+
+        VBox zoneButtons = new VBox();
+        zoneButtons.setSpacing(11);
+
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+
         HBox infosBox = new HBox(); // zone with user datas & results
         infosBox.setPadding(new Insets(7));
-
+        
         datas = new DatasPane(); //datas zone of user
         results = new ResultsPane();//results zone of user
-
+        
+        MenuItem exit = new MenuItem("Exit");
+        exit.setOnAction((ActionEvent t) -> {
+            System.exit(0);
+        });
+        
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
-        
+
         Button btnClear = new Button("Clear");
         btnClear.setMaxWidth(Double.MAX_VALUE);
-        
+
         btnCalcul.setOnAction((ActionEvent event) -> {
             try {
                 BMRCalculator.setHeight(datas.getHeight());
@@ -76,13 +90,18 @@ public class BMRfx extends Application {
         });
 
         btnClear.setOnAction((ActionEvent event) -> {
-           datas.clearAllFields();
-           results.clearAllFields();
+            datas.clearAllFields();
+            results.clearAllFields();
         });
-                
-        menuButtons.getChildren().addAll(btnCalcul, btnClear);
+
+        menuFile.getItems().add(exit);
+        menuBar.getMenus().add(menuFile);
+
+        zoneButtons.getChildren().addAll(btnCalcul, btnClear);
         infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
-        root.getChildren().addAll(infosBox, menuButtons);
+        rootScene.getChildren().addAll(infosBox, zoneButtons);
+
+        root.getChildren().addAll(menuBar, rootScene);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
