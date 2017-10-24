@@ -15,7 +15,7 @@ import td3.bmr.breton.model.Lifestyle;
  *
  * @author Gabriel Breton - 43397
  */
-public class DatasPane {
+class DatasPane {
 
     private GridPane datas;
     private TextField height;
@@ -24,7 +24,7 @@ public class DatasPane {
     private RadioButton rbMen, rbWomen;
     private ChoiceBox cbLifestyle;
 
-    public DatasPane() {
+    DatasPane() {
         initAndSet();
     }
 
@@ -130,7 +130,7 @@ public class DatasPane {
      *
      * @return the Datas GridPane.
      */
-    public GridPane getDatas() {
+    GridPane getDatas() {
         return datas;
     }
 
@@ -139,7 +139,7 @@ public class DatasPane {
      *
      * @return the textfield Size.
      */
-    public double getHeight() {
+    double getHeight() {
         return Double.valueOf(height.getText());
     }
 
@@ -148,7 +148,7 @@ public class DatasPane {
      *
      * @return the value of weight.
      */
-    public double getWeight() {
+    double getWeight() {
         return Double.valueOf(weight.getText());
     }
 
@@ -157,7 +157,7 @@ public class DatasPane {
      *
      * @return the textfield Age.
      */
-    public double getAge() {
+    double getAge() {
         return Double.valueOf(age.getText());
     }
 
@@ -166,7 +166,7 @@ public class DatasPane {
      *
      * @return the radio button Women.
      */
-    public RadioButton getRbWomen() {
+    RadioButton getRbWomen() {
         return rbWomen;
     }
 
@@ -175,7 +175,15 @@ public class DatasPane {
      *
      * @return the choicebox lifestyle.
      */
-    public ChoiceBox getCbLifestyle() {
+    ChoiceBox getCbLifestyle() {
         return cbLifestyle;
+    }
+    
+    void clearAllFields() {
+        height.clear();
+        weight.clear();
+        age.clear();
+        cbLifestyle.getSelectionModel().selectFirst();
+        rbWomen.setSelected(true);
     }
 }

@@ -16,7 +16,7 @@ public class ResultsPane {
     private TextField tfdBMR;
     private TextField tfdCalories;
 
-    public ResultsPane() {
+    ResultsPane() {
         initAndSet();
     }
 
@@ -78,7 +78,7 @@ public class ResultsPane {
      *
      * @return the results GridPane.
      */
-    public GridPane getResults() {
+    GridPane getResults() {
         return results;
     }
 
@@ -87,7 +87,7 @@ public class ResultsPane {
      *
      * @param bmr the value of bmr.
      */
-    public void setBMR(Double bmr) {
+    void setBMR(Double bmr) {
         tfdBMR.setStyle("-fx-text-inner-color: black;");
         long roundedBMR = Math.round(bmr);
         tfdBMR.setText(Double.toString(roundedBMR));
@@ -98,7 +98,7 @@ public class ResultsPane {
      *
      * @param calories the value of calories.
      */
-    public void setCalories(Double calories) {
+    void setCalories(Double calories) {
         tfdCalories.setStyle("-fx-text-inner-color: black;");
         long roundedCalories = Math.round(calories);
         tfdCalories.setText(Long.toString(roundedCalories));
@@ -109,7 +109,7 @@ public class ResultsPane {
      *
      * @param BMRString The error message.
      */
-    public void setErrorTfdBMR(String BMRString) {
+    void setErrorTfdBMR(String BMRString) {
         tfdBMR.setStyle("-fx-text-inner-color: red;");
         tfdBMR.setText(BMRString);
     }
@@ -119,8 +119,13 @@ public class ResultsPane {
      *
      * @param caloriesString The error message.
      */
-    public void setErrorTfdCalories(String caloriesString) {
+    void setErrorTfdCalories(String caloriesString) {
         tfdCalories.setStyle("-fx-text-inner-color: red;");
         tfdCalories.setText(caloriesString);
+    }
+    
+    void clearAllFields() {
+        tfdBMR.clear();
+        tfdCalories.clear();
     }
 }

@@ -2,7 +2,6 @@ package td3.bmr.breton.view;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -72,7 +71,12 @@ public class BMRfx extends Application {
         
         Button btnClear = new Button("Clear");
         btnClear.setMaxWidth(Double.MAX_VALUE);
-
+        
+        btnClear.setOnAction((ActionEvent event) -> {
+           datas.clearAllFields();
+           results.clearAllFields();
+        });
+                
         infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
         root.getChildren().addAll(infosBox, btnCalcul, btnClear);
 
