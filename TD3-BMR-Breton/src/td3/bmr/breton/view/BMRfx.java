@@ -45,6 +45,9 @@ public class BMRfx extends Application {
         VBox root = new VBox();
         root.setPadding(new Insets(6));
 
+        VBox menuButtons = new VBox();
+        menuButtons.setSpacing(11);
+        
         HBox infosBox = new HBox(); // zone with user datas & results
         infosBox.setPadding(new Insets(7));
 
@@ -53,7 +56,10 @@ public class BMRfx extends Application {
 
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
-
+        
+        Button btnClear = new Button("Clear");
+        btnClear.setMaxWidth(Double.MAX_VALUE);
+        
         btnCalcul.setOnAction((ActionEvent event) -> {
             try {
                 BMRCalculator.setHeight(datas.getHeight());
@@ -68,17 +74,15 @@ public class BMRfx extends Application {
                 results.setErrorTfdCalories("Failed !");
             }
         });
-        
-        Button btnClear = new Button("Clear");
-        btnClear.setMaxWidth(Double.MAX_VALUE);
-        
+
         btnClear.setOnAction((ActionEvent event) -> {
            datas.clearAllFields();
            results.clearAllFields();
         });
                 
+        menuButtons.getChildren().addAll(btnCalcul, btnClear);
         infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
-        root.getChildren().addAll(infosBox, btnCalcul, btnClear);
+        root.getChildren().addAll(infosBox, menuButtons);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
