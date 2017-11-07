@@ -1,35 +1,42 @@
 package td3.bmr.breton.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
+import td3.bmr.breton.util.Observable;
+import td3.bmr.breton.util.Observer;
 
 /**
  * This class calculates the BMR and the calories.
  *
  * @author Gabriel Breton - 43397
  */
-public class BMRCalculator {
+public class BMRCalculator implements Observable {
+    private double age;
+    private double height;
+    private double weight;
+    private boolean women;
+    private double lifestyleValue;
+    private double bmr;
+    private double calories;
+    private final List<Observer> listObs;
 
-    private static double age;
-    private static double height;
-    private static double weight;
-    private static boolean women;
-    private static double lifestyleValue;
-    private static double bmr;
-    private static double calories;
-
+    public BMRCalculator(){
+        this.listObs = new ArrayList<>() ;
+    }
+    
+    
     /**
      * Calculate the BMR.
      *
      * @return the value of the BMR.
      */
-    private static void calculateBMR() {
-        if (isWomen()) {
-            bmr = (9.6 * getWeight()) + (1.8 * getHeight()) - (4.7 * getAge())
-                    + 655;
+    private void calculateBMR() {
+        if (women) {
+            bmr = (9.6 * weight) + (1.8 * height) - (4.7 * age) + 655;
         } else {
-            bmr = (13.7 * getWeight()) + (5 * getHeight()) - (6.8 * getAge())
-                    + 66;
+            bmr = (13.7 * weight) + (5 * height) - (6.8 * age) + 66;
         }
     }
 
@@ -38,53 +45,10 @@ public class BMRCalculator {
      *
      * @return the daily calories.
      */
-    private static void calculateCalories() {
-        calories = getBmr() * getLifestyleValue();
-    }
-
-    /**
-     * Gives the height.
-     *
-     * @return the height.
-     */
-    private static double getHeight() {
-        return height;
-    }
-
-    /**
-     * Gives the weight.
-     *
-     * @return the weight.
-     */
-    private static double getWeight() {
-        return weight;
-    }
-
-    /**
-     * Gives the age.
-     *
-     * @return the age.
-     */
-    private static double getAge() {
-        return age;
-    }
-
-    /**
-     * Gives the value of women.
-     *
-     * @return the value of women.
-     */
-    private static boolean isWomen() {
-        return women;
-    }
-
-    /**
-     * Gives the lifestyle value.
-     *
-     * @return the lifestyle value.
-     */
-    private static double getLifestyleValue() {
-        return lifestyleValue;
+    public void calculateCalories() {
+        calculateBMR();
+        calories = bmr * lifestyleValue;
+        notifyObservers();
     }
 
     /**
@@ -92,8 +56,7 @@ public class BMRCalculator {
      *
      * @return the value of the BMR.
      */
-    public static double getBmr() {
-        calculateBMR();
+    public double getBmr() {
         return bmr;
     }
 
@@ -102,8 +65,7 @@ public class BMRCalculator {
      *
      * @return the calories value.
      */
-    public static double getCalories() {
-        calculateCalories();
+    public double getCalories() {
         return calories;
     }
 
@@ -112,8 +74,8 @@ public class BMRCalculator {
      *
      * @param age the age to set.
      */
-    public static void setAge(Double age) {
-        BMRCalculator.age = age;
+    public void setAge(Double age) {
+        this.age = age;
     }
 
     /**
@@ -121,8 +83,8 @@ public class BMRCalculator {
      *
      * @param height the size value.
      */
-    public static void setHeight(Double height) {
-        BMRCalculator.height = height;
+    public void setHeight(Double height) {
+        this.height = height;
     }
 
     /**
@@ -130,8 +92,8 @@ public class BMRCalculator {
      *
      * @param weight the weight to set.
      */
-    public static void setWeight(Double weight) {
-        BMRCalculator.weight = weight;
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
     /**
@@ -139,7 +101,7 @@ public class BMRCalculator {
      *
      * @param rbWomen the women radio button.
      */
-    public static void setGender(RadioButton rbWomen) {
+    public void setGender(RadioButton rbWomen) {
         setWomen(rbWomen.isSelected());
     }
 
@@ -148,8 +110,8 @@ public class BMRCalculator {
      *
      * @param women the boolean to set.
      */
-    private static void setWomen(boolean women) {
-        BMRCalculator.women = women;
+    private void setWomen(boolean women) {
+        this.women = women;
     }
 
     /**
@@ -158,7 +120,7 @@ public class BMRCalculator {
      *
      * @param cbLifestyle the choicebox of the lifestyle.
      */
-    public static void setLifestyle(ChoiceBox cbLifestyle) {
+    public void setLifestyle(ChoiceBox cbLifestyle) {
         Lifestyle lifestyle;
         lifestyle = (Lifestyle) cbLifestyle.getSelectionModel().getSelectedItem();
         assignLifestyleValue(lifestyle);
@@ -169,7 +131,7 @@ public class BMRCalculator {
      *
      * @param lifeStyle the lifestyle to assign the corresponding value.
      */
-    private static void assignLifestyleValue(Lifestyle lifeStyle) {
+    private void assignLifestyleValue(Lifestyle lifeStyle) {
         switch (lifeStyle) {
             case SEDENTARY:
                 setLifestyleValue(1.2);
@@ -194,7 +156,25 @@ public class BMRCalculator {
      *
      * @param lifestyleValue the value to set.
      */
-    private static void setLifestyleValue(double lifestyleValue) {
-        BMRCalculator.lifestyleValue = lifestyleValue;
+    private void setLifestyleValue(double lifestyleValue) {
+        this.lifestyleValue = lifestyleValue;
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        if (!listObs.contains(o)) {
+            listObs.add(o);
+        }
+    }
+
+    @Override
+    public void deleteObserver(Observer o) {
+        listObs.remove(o);
+    }
+
+    private void notifyObservers() {
+        for (Observer obs : listObs) {
+            obs.update(this);
+        }
     }
 }

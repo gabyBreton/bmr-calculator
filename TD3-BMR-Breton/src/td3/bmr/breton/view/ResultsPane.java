@@ -1,25 +1,26 @@
 package td3.bmr.breton.view;
 
+import td3.bmr.breton.util.Observer;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import td3.bmr.breton.model.BMRCalculator;
 
 /**
  * This class provides methods to create, init and set the Results GridPane.
  *
  * @author Gabriel Breton - 43397
  */
-public class ResultsPane {
-
+public class ResultsPane implements Observer {
     private GridPane results;
     private TextField tfdBMR;
     private TextField tfdCalories;
-
+    
     ResultsPane() {
         initAndSet();
     }
-
+    
     /**
      * Initialize and set the components of the GridPane.
      */
@@ -138,5 +139,11 @@ public class ResultsPane {
     void clearAllFields() {
         tfdBMR.clear();
         tfdCalories.clear();
+    }
+
+    @Override
+    public void update(BMRCalculator person) {
+        setBMR(person.getBmr());
+        setCalories(person.getCalories());
     }
 }

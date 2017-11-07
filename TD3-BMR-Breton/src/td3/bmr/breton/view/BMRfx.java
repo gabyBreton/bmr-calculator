@@ -2,7 +2,6 @@ package td3.bmr.breton.view;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,7 +21,7 @@ import td3.bmr.breton.model.BMRCalculator;
  * @author Gabriel Breton - 43397
  */
 public class BMRfx extends Application {
-
+    private BMRCalculator person;
     private DatasPane datas;
     private ResultsPane results;
 
@@ -64,6 +63,8 @@ public class BMRfx extends Application {
 
         datas = new DatasPane(); //datas zone of user
         results = new ResultsPane();//results zone of user
+        person = new BMRCalculator();
+        person.addObserver(results);
 
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction((ActionEvent t) -> {
@@ -75,14 +76,14 @@ public class BMRfx extends Application {
 
         Button btnClear = new Button("Clear");
         btnClear.setMaxWidth(Double.MAX_VALUE);
-        
+
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Encoding error");
-        alert.setContentText("Enter a value strictly superior to zero.");        
-        
+        alert.setContentText("Enter a value strictly superior to zero.");
+
         btnCalcul.setOnAction((ActionEvent event) -> {
             try {
-                BMRCalculator.setHeight(datas.getHeight());
+                person.setHeight(datas.getHeight());
             } catch (NumberFormatException nbrException) {
                 alert.setHeaderText("Value of the height incorrect.");
                 alert.showAndWait();
@@ -90,7 +91,7 @@ public class BMRfx extends Application {
             }
 
             try {
-                BMRCalculator.setWeight(datas.getWeight());
+                person.setWeight(datas.getWeight());
             } catch (NumberFormatException nbrException) {
                 alert.setHeaderText("Value of the weight incorrect.");
                 alert.showAndWait();
@@ -98,11 +99,10 @@ public class BMRfx extends Application {
             }
 
             try {
-                BMRCalculator.setAge(datas.getAge());
-                BMRCalculator.setGender(datas.getRbWomen());
-                BMRCalculator.setLifestyle(datas.getCbLifestyle());
-                results.setBMR(BMRCalculator.getBmr());
-                results.setCalories(BMRCalculator.getCalories());
+                person.setAge(datas.getAge());
+                person.setGender(datas.getRbWomen());
+                person.setLifestyle(datas.getCbLifestyle());
+                person.calculateCalories();
             } catch (NumberFormatException nbrException) {
                 alert.setHeaderText("Value of the age incorrect.");
                 alert.showAndWait();
