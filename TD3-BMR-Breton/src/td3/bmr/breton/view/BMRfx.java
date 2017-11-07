@@ -21,6 +21,7 @@ import td3.bmr.breton.model.BMRCalculator;
  * @author Gabriel Breton - 43397
  */
 public class BMRfx extends Application {
+
     private BMRCalculator person;
     private DatasPane datas;
     private ResultsPane results;
@@ -71,16 +72,46 @@ public class BMRfx extends Application {
             System.exit(0);
         });
 
-        Button btnCalcul = new Button("Calculate the BMR");
-        btnCalcul.setMaxWidth(Double.MAX_VALUE);
+        Alert alert = makeAlert();
 
+        Button btnCalcul = makeButtonQuit(alert);
+
+        Button btnClear = makeButtonClear();
+
+        menuFile.getItems().add(exit);
+        menuBar.getMenus().add(menuFile);
+
+        zoneButtons.getChildren().addAll(btnCalcul, btnClear);
+        infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
+        rootScene.getChildren().addAll(infosBox, zoneButtons);
+
+        root.getChildren().addAll(menuBar, rootScene);
+
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private Button makeButtonClear() {
         Button btnClear = new Button("Clear");
         btnClear.setMaxWidth(Double.MAX_VALUE);
+        btnClear.setOnAction((ActionEvent event) -> {
+            datas.clearAllFields();
+            results.clearAllFields();
+        });
+        return btnClear;
+    }
 
+    private Alert makeAlert() {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Encoding error");
         alert.setContentText("Enter a value strictly superior to zero.");
+        return alert;
+    }
 
+    private Button makeButtonQuit(Alert alert) {
+        Button btnCalcul = new Button("Calculate the BMR");
+        btnCalcul.setMaxWidth(Double.MAX_VALUE);
         btnCalcul.setOnAction((ActionEvent event) -> {
             try {
                 person.setHeight(datas.getHeight());
@@ -109,23 +140,6 @@ public class BMRfx extends Application {
                 results.showErrorsMessages();
             }
         });
-
-        btnClear.setOnAction((ActionEvent event) -> {
-            datas.clearAllFields();
-            results.clearAllFields();
-        });
-
-        menuFile.getItems().add(exit);
-        menuBar.getMenus().add(menuFile);
-
-        zoneButtons.getChildren().addAll(btnCalcul, btnClear);
-        infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
-        rootScene.getChildren().addAll(infosBox, zoneButtons);
-
-        root.getChildren().addAll(menuBar, rootScene);
-
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        return btnCalcul;
     }
 }
