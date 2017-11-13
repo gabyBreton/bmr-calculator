@@ -26,7 +26,6 @@ public class BMRCalculator implements Observable {
         this.listObs = new ArrayList<>() ;
     }
     
-    
     /**
      * Calculate the BMR.
      *
@@ -151,6 +150,14 @@ public class BMRCalculator implements Observable {
         }
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
+    public boolean isWomen() {
+        return women;
+    }
+    
     /**
      * Set the lifestyle value.
      *
@@ -167,6 +174,13 @@ public class BMRCalculator implements Observable {
         }
     }
 
+    @Override
+    public void addAllObserver(Observer... o) {
+        for(Observer obs : o) {
+            addObserver(obs);
+        }
+    }
+    
     @Override
     public void deleteObserver(Observer o) {
         listObs.remove(o);
