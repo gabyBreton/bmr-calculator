@@ -10,10 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import td3.bmr.breton.model.BMRCalculator;
+
+
+//TO-DO: REMOVE ALERTS AND SAY INVALID FIELDS !
+//NO EXCEPTIONS THROWED.
 
 /**
  * This class provides methods to create, set and launch the BMR calculator.
@@ -25,6 +30,7 @@ public class BMRfx extends Application {
     private BMRCalculator person;
     private DatasPane datas;
     private ResultsPane results;
+    private LineCharts lineChart;
 
     /**
      * Launch the window of the BMR Calculator.
@@ -44,61 +50,90 @@ public class BMRfx extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws NumberFormatException {
-        primaryStage.setTitle("BMR Calculator");
-        primaryStage.setMinWidth(400);
-        primaryStage.setMinHeight(250);
+        setStage(primaryStage);
+        BorderPane root = new BorderPane();
+        VBox dataResultBtnZone = makeDataResultBtnZone(); 
+        VBox zoneButtons = makeZoneButtons(); 
+        HBox infosBox = makeInfosBox(); // zone with users datas & results
 
-        VBox root = new VBox();
-
-        VBox rootScene = new VBox();
-        rootScene.setPadding(new Insets(6));
-
-        VBox zoneButtons = new VBox();
-        zoneButtons.setSpacing(11);
-
-        MenuBar menuBar = new MenuBar();
-        Menu menuFile = new Menu("File");
-
-        HBox infosBox = new HBox(); // zone with user datas & results
-        infosBox.setPadding(new Insets(7));
-
-        datas = new DatasPane(); //datas zone of user
-        results = new ResultsPane();//results zone of user
+        datas = new DatasPane(); //datas-zone of user
+        results = new ResultsPane(); //results-zone of user
         person = new BMRCalculator();
-        person.addObserver(results);
-
-        MenuItem exit = new MenuItem("Exit");
-        exit.setOnAction((ActionEvent t) -> {
-            System.exit(0);
-        });
+        lineChart = new LineCharts("BMR Index Vs Weight", "Weight (kg)", "BMR");
+        
+        person.addAllObserver(results, lineChart);
 
         Alert alert = makeAlert();
-
-        Button btnCalcul = makeButtonQuit(alert);
-
+        Button btnCalcul = makeButtonCalcul(alert);
         Button btnClear = makeButtonClear();
-
-        menuFile.getItems().add(exit);
-        menuBar.getMenus().add(menuFile);
+        MenuBar menuBar = makeMenuBar();
 
         zoneButtons.getChildren().addAll(btnCalcul, btnClear);
         infosBox.getChildren().addAll(datas.getDatas(), results.getResults());
-        rootScene.getChildren().addAll(infosBox, zoneButtons);
-
-        root.getChildren().addAll(menuBar, rootScene);
-
+        dataResultBtnZone.getChildren().addAll(infosBox, zoneButtons);
+        
+        root.setTop(menuBar);
+        root.setLeft(dataResultBtnZone);
+        root.setCenter(lineChart.getLineChart());
+        
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    private void setStage(Stage primaryStage) {
+        primaryStage.setTitle("BMR Calculator");
+        primaryStage.setMinWidth(400);
+        primaryStage.setMinHeight(250);
+    }
+
+    private HBox makeInfosBox() {
+        HBox infosBox = new HBox(); 
+        infosBox.setPadding(new Insets(7));
+        return infosBox;
+    }
+
+    private VBox makeZoneButtons() {
+        VBox zoneButtons = new VBox();
+        zoneButtons.setSpacing(11);
+        return zoneButtons;
+    }
+
+    private VBox makeDataResultBtnZone() {
+        VBox dataResultBtnZone = new VBox();
+        dataResultBtnZone.setPadding(new Insets(6));
+        return dataResultBtnZone;
+    }
+
+    private MenuBar makeMenuBar() {
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        
+        MenuItem exit = makeActionExit();
+        menuFile.getItems().add(exit);
+        menuBar.getMenus().add(menuFile);
+        return menuBar;
+    }
+
+    private MenuItem makeActionExit() {
+        MenuItem exit = new MenuItem("Exit");
+        
+        exit.setOnAction((ActionEvent t) -> {
+            System.exit(0);
+        });
+        
+        return exit;
+    }
+
     private Button makeButtonClear() {
         Button btnClear = new Button("Clear");
         btnClear.setMaxWidth(Double.MAX_VALUE);
+        
         btnClear.setOnAction((ActionEvent event) -> {
             datas.clearAllFields();
             results.clearAllFields();
         });
+        
         return btnClear;
     }
 
@@ -109,24 +144,20 @@ public class BMRfx extends Application {
         return alert;
     }
 
-    private Button makeButtonQuit(Alert alert) {
+    private Button makeButtonCalcul(Alert alert) {
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
         btnCalcul.setOnAction((ActionEvent event) -> {
             try {
                 person.setHeight(datas.getHeight());
             } catch (NumberFormatException nbrException) {
-                alert.setHeaderText("Value of the height incorrect.");
-                alert.showAndWait();
-                results.showErrorsMessages();
+                alertHeight(alert);
             }
 
             try {
                 person.setWeight(datas.getWeight());
             } catch (NumberFormatException nbrException) {
-                alert.setHeaderText("Value of the weight incorrect.");
-                alert.showAndWait();
-                results.showErrorsMessages();
+                alertWeight(alert);
             }
 
             try {
@@ -135,11 +166,27 @@ public class BMRfx extends Application {
                 person.setLifestyle(datas.getCbLifestyle());
                 person.calculateCalories();
             } catch (NumberFormatException nbrException) {
-                alert.setHeaderText("Value of the age incorrect.");
-                alert.showAndWait();
-                results.showErrorsMessages();
+                alertAge(alert);
             }
         });
         return btnCalcul;
+    }
+
+    private void alertAge(Alert alert) {
+        alert.setHeaderText("Value of the age incorrect.");
+        alert.showAndWait();
+        results.showErrorsMessages();
+    }
+
+    private void alertWeight(Alert alert) {
+        alert.setHeaderText("Value of the weight incorrect.");
+        alert.showAndWait();
+        results.showErrorsMessages();
+    }
+
+    private void alertHeight(Alert alert) {
+        alert.setHeaderText("Value of the height incorrect.");
+        alert.showAndWait();
+        results.showErrorsMessages();
     }
 }
