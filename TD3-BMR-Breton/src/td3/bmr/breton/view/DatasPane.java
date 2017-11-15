@@ -1,5 +1,9 @@
 package td3.bmr.breton.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.input.KeyEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -83,17 +87,57 @@ class DatasPane {
      * Add all the texfields on the GridPane.
      */
     private void addTextFields() {
-        height = new TextField();
-        height.setPromptText("Size in cm");
+        makeTextFieldHeight();
         datas.add(height, 1, 1);
 
-        weight = new TextField();
-        weight.setPromptText("Weight in kg");
+        makeTextFieldWeight();
         datas.add(weight, 1, 2);
 
+        makeTextFieldAge();
+        datas.add(age, 1, 3);
+    }
+    
+    /**
+     * Makes the textfield age.
+     */
+    private void makeTextFieldAge() {
         age = new TextField();
         age.setPromptText("Age in years");
-        datas.add(age, 1, 3);
+        filterTfdDouble(age);
+    }
+    
+    /**
+     * Makes the textfield weight.
+     */
+    private void makeTextFieldWeight() {
+        weight = new TextField();
+        weight.setPromptText("Weight in kg");
+        filterTfdDouble(weight);
+    }
+
+    /**
+     * Makes the textfield height.
+     */
+    private void makeTextFieldHeight() {
+        height = new TextField();
+        height.setPromptText("Size in cm");
+        filterTfdDouble(height);
+    }
+
+    /**
+     * Add a filter to a textfield to get only double values entered.
+     * 
+     * @param textField the textfield where to add a filter.
+     */
+    private void filterTfdDouble(TextField textField) {
+        textField.textProperty().addListener((ObservableValue<? extends String> 
+                                              observable, 
+                                              String oldValue, 
+                                              String newValue) -> {
+            if (!newValue.matches("[0-9]*\\.?[0-9]+")) {
+                textField.setText(newValue.replaceAll("[^\\d.]", ""));
+            }
+        });
     }
 
     /**
