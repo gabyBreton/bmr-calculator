@@ -12,33 +12,34 @@ import td3.bmr.breton.model.BMRCalculator;
  *
  * @author Gabriel Breton - 43397
  */
-public class ResultsPane implements Observer {
-    private GridPane results;
+public class ResultsPane extends GridPane implements Observer {
+
     private TextField tfdBMR;
     private TextField tfdCalories;
     
     ResultsPane() {
-        initAndSet();
+        super();
+        setGridPane();
+        initLabelsTfdButtons();
+        
     }
     
     /**
-     * Initialize and set the components of the GridPane.
+     * Initializes and set the components of the GridPane.
      */
-    private void initAndSet() {
-        initGridPane();
+    private void initLabelsTfdButtons() {
         addTitle();
         addLabels();
         addTextFields();
     }
 
     /**
-     * Initialize the Results GridPane.
+     * Initializes the Results GridPane.
      */
-    private void initGridPane() {
-        results = new GridPane(); //results of calculs
-        results.setPadding(new Insets(5));
-        results.setHgap(10);
-        results.setVgap(15);
+    private void setGridPane() {
+        this.setPadding(new Insets(5));
+        this.setHgap(10);
+        this.setVgap(15);
     }
 
     /**
@@ -47,7 +48,7 @@ public class ResultsPane implements Observer {
     private void addTitle() {
         Label resultsTitle = new Label("Results");
         resultsTitle.setUnderline(true);
-        results.add(resultsTitle, 0, 0);
+        this.add(resultsTitle, 0, 0);
     }
 
     /**
@@ -55,10 +56,10 @@ public class ResultsPane implements Observer {
      */
     private void addLabels() {
         Label lblBMR = new Label("BMR");
-        results.add(lblBMR, 0, 1);
+        this.add(lblBMR, 0, 1);
 
         Label lblCalories = new Label("Calories");
-        results.add(lblCalories, 0, 2);
+        this.add(lblCalories, 0, 2);
     }
 
     /**
@@ -67,21 +68,21 @@ public class ResultsPane implements Observer {
     private void addTextFields() {
         tfdBMR = new TextField();
         tfdBMR.setPromptText("BMR results");
-        results.add(tfdBMR, 1, 1);
+        this.add(tfdBMR, 1, 1);
 
         tfdCalories = new TextField();
         tfdCalories.setPromptText("Calories expenses");
-        results.add(tfdCalories, 1, 2);
+        this.add(tfdCalories, 1, 2);
     }
 
-    /**
-     * Gives the results GridPane.
-     *
-     * @return the results GridPane.
-     */
-    GridPane getResults() {
-        return results;
-    }
+//    /**
+//     * Gives the results GridPane.
+//     *
+//     * @return the results GridPane.
+//     */
+//    GridPane getResults() {
+//        return results;
+//    }
 
     /**
      * Set the BMR textfield.
@@ -146,4 +147,5 @@ public class ResultsPane implements Observer {
         setBMR(person.getBmr());
         setCalories(person.getCalories());
     }
+
 }

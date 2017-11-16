@@ -11,43 +11,43 @@ import td3.bmr.breton.util.Observer;
  *
  * @author Gabriel Breton - 43397
  */
-public class LineCharts implements Observer {
+class LineCharts extends LineChart implements Observer {
 
-    private final NumberAxis xAxis;
-    private final NumberAxis yAxis;
-    private final LineChart lineChart;
     private Series womenSeries;
     private Series menSeries;
 
     @Override
     public void update(BMRCalculator person) {
-        if (person.isWomen()) {
-            womenSeries.getData().add(new XYChart.Data((int) person.getWeight(), 
-                                                       person.getBmr())); 
-        } else {
-            menSeries.getData().add(new XYChart.Data((int) person.getWeight(), 
-                                                     person.getBmr()));
+        
+        if (this.getTitle().matches("Height (cm) Vs BMR")) {
+            setSeries(person.isWomen(), person.getHeight(), person.getBmr());
+        } 
+        
+        if (this.getTitle().matches("Weight (kg) Vs Calories")) {
+            setSeries(person.isWomen(), person.getWeight(), 
+                      person.getCalories());
+        }
+            
+        if (this.getTitle().matches("Weight(kg) Vs BMR")) {
+            setSeries(person.isWomen(), person.getWeight(), person.getBmr());
         }
     }
 
-    LineCharts(String title, String xLabel, String yLabel) {
-        xAxis = new NumberAxis();
-        xAxis.setLabel(xLabel);
+    private void setSeries(boolean isWomen, Double data, Double result) {
+        if (isWomen) {
+            womenSeries.getData().add(new XYChart.Data(data, result));
+        } else {
+            menSeries.getData().add(new XYChart.Data(data, result));
+        }
+    }
 
-        yAxis = new NumberAxis(0, 2250, 250);
-        yAxis.setLabel(yLabel);
+    LineCharts(String title, NumberAxis xAxis, NumberAxis yAxis) {
+        super(xAxis, yAxis);
+        this.setTitle(title);
 
         womenSeries = makeWomenSeries();
         menSeries = makeMenSeries();
-        
-        lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-        lineChart.setTitle(title);
-        lineChart.getData().add(menSeries);
-        lineChart.getData().add(womenSeries);
-    }
-
-    public LineChart getLineChart() {
-        return lineChart;
+        this.getData().addAll(menSeries, womenSeries);
     }
 
     private Series makeWomenSeries() {
@@ -63,4 +63,5 @@ public class LineCharts implements Observer {
 
         return menSeries;
     }
+
 }

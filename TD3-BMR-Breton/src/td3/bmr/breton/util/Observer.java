@@ -14,5 +14,4 @@ import td3.bmr.breton.model.BMRCalculator;
 public interface Observer {
     
     public void update(BMRCalculator person);    
-
 }

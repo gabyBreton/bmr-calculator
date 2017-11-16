@@ -6,6 +6,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import td3.bmr.breton.util.Observable;
 import td3.bmr.breton.util.Observer;
+import td3.bmr.breton.view.ResultsPane;
 
 /**
  * This class calculates the BMR and the calories.
@@ -13,6 +14,7 @@ import td3.bmr.breton.util.Observer;
  * @author Gabriel Breton - 43397
  */
 public class BMRCalculator implements Observable {
+
     private double age;
     private double height;
     private double weight;
@@ -22,10 +24,10 @@ public class BMRCalculator implements Observable {
     private double calories;
     private final List<Observer> listObs;
 
-    public BMRCalculator(){
-        this.listObs = new ArrayList<>() ;
+    public BMRCalculator() {
+        this.listObs = new ArrayList<>();
     }
-    
+
     /**
      * Calculate the BMR.
      *
@@ -157,7 +159,7 @@ public class BMRCalculator implements Observable {
     public boolean isWomen() {
         return women;
     }
-    
+
     /**
      * Set the lifestyle value.
      *
@@ -176,11 +178,11 @@ public class BMRCalculator implements Observable {
 
     @Override
     public void addAllObserver(Observer... o) {
-        for(Observer obs : o) {
+        for (Observer obs : o) {
             addObserver(obs);
         }
     }
-    
+
     @Override
     public void deleteObserver(Observer o) {
         listObs.remove(o);
@@ -191,4 +193,13 @@ public class BMRCalculator implements Observable {
             obs.update(this);
         }
     }
+
+    public double getAge() {
+        return age;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
 }

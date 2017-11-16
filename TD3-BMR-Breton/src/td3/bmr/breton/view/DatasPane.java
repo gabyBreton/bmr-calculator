@@ -19,109 +19,110 @@ import td3.bmr.breton.model.Lifestyle;
  *
  * @author Gabriel Breton - 43397
  */
-class DatasPane {
+class DatasPane extends GridPane {
 
-    private GridPane datas;
-    private TextField height;
-    private TextField weight;
-    private TextField age;
+    //private GridPane datas;    //useless
+    private TextField tfdHeight;  
+    private TextField tfdWeight;
+    private TextField tfdAge;
     private RadioButton rbMen, rbWomen;
     private ChoiceBox cbLifestyle;
 
     DatasPane() {
-        initAndSet();
+        super();
+        setGridPane();
+        initLabelsTfdButtons();
     }
 
     /**
      * Initialize and set the components of the GridPane.
      */
-    private void initAndSet() {
-        initGridPane();
-        addTitle();
-        addLabels();
-        addTextFields();
-        addGenderButtons();
-        addLifestyleChoiceBox();
+    private void initLabelsTfdButtons() {
+      //  initGridPane();
+        makeTitle();
+        makeLabels();
+        makeTextFields();
+        makeGenderButtons();
+        makeLifestyleChoiceBox();
     }
 
     /**
      * Initialize the Datas GridPane.
      */
-    private void initGridPane() {
-        datas = new GridPane(); //datas of user
-        datas.setPadding(new Insets(5));
-        datas.setHgap(10);
-        datas.setVgap(15);
+    private void setGridPane() {
+        this.setPadding(new Insets(5));
+        this.setHgap(10);
+        this.setVgap(15);
     }
 
     /**
      * Add the title on the GridPane.
      */
-    private void addTitle() {
+    private void makeTitle() {
         Label datasTitle = new Label("Datas");
         datasTitle.setUnderline(true);
-        datas.add(datasTitle, 0, 0);
+        this.add(datasTitle, 0, 0);
     }
 
     /**
      * Add all the labels on the GridPane.
      */
-    private void addLabels() {
+    private void makeLabels() {
         Label lblSize = new Label("Size (cm)");
-        datas.add(lblSize, 0, 1);
+        this.add(lblSize, 0, 1);
 
         Label lblWeight = new Label("Weight (kg)");
-        datas.add(lblWeight, 0, 2);
+        this.add(lblWeight, 0, 2);
 
         Label lblAge = new Label("Age (years)");
-        datas.add(lblAge, 0, 3);
+        this.add(lblAge, 0, 3);
 
         Label lblSex = new Label("Sex");
-        datas.add(lblSex, 0, 4);
+        this.add(lblSex, 0, 4);
 
         Label lblLifeStyle = new Label("Lifestyle");
-        datas.add(lblLifeStyle, 0, 5);
+        this.add(lblLifeStyle, 0, 5);
     }
 
     /**
      * Add all the texfields on the GridPane.
      */
-    private void addTextFields() {
+    private void makeTextFields() {
         makeTextFieldHeight();
-        datas.add(height, 1, 1);
+        this.add(tfdHeight, 1, 1);
 
         makeTextFieldWeight();
-        datas.add(weight, 1, 2);
+        this.add(tfdWeight, 1, 2);
 
         makeTextFieldAge();
-        datas.add(age, 1, 3);
+        this.add(tfdAge, 1, 3);
     }
     
     /**
      * Makes the textfield age.
      */
     private void makeTextFieldAge() {
-        age = new TextField();
-        age.setPromptText("Age in years");
-        filterTfdDouble(age);
+        tfdAge = new TextField();
+        tfdAge.setPromptText("Age in years");
+        filterTfdDouble(tfdAge);
     }
     
     /**
      * Makes the textfield weight.
      */
     private void makeTextFieldWeight() {
-        weight = new TextField();
-        weight.setPromptText("Weight in kg");
-        filterTfdDouble(weight);
+        tfdWeight = new TextField();
+        tfdWeight.setPromptText("Weight in kg");
+        filterTfdDouble(tfdWeight);
     }
 
     /**
      * Makes the textfield height.
      */
     private void makeTextFieldHeight() {
-        height = new TextField();
-        height.setPromptText("Size in cm");
-        filterTfdDouble(height);
+        tfdHeight = new TextField();
+        tfdHeight.setPromptText("Size in cm");
+        filterTfdDouble(tfdHeight);
     }
 
     /**
@@ -143,7 +144,7 @@ class DatasPane {
     /**
      * Add the gender choice buttons on the GridPane.
      */
-    private void addGenderButtons() {
+    private void makeGenderButtons() {
         final ToggleGroup groupChoiceSex = new ToggleGroup();
         rbWomen = new RadioButton("Women");
         rbMen = new RadioButton("Men");
@@ -156,57 +157,57 @@ class DatasPane {
         //put buttons in a box and add box in datas.
         HBox sexChoice = new HBox(20);
         sexChoice.getChildren().addAll(rbWomen, rbMen);
-        datas.add(sexChoice, 1, 4);
+        this.add(sexChoice, 1, 4);
     }
 
     /**
      * Add the lifestyle choice box on the GridPane.
      */
-    private void addLifestyleChoiceBox() {
+    private void makeLifestyleChoiceBox() {
         cbLifestyle = new ChoiceBox();
         cbLifestyle.getItems().addAll(Lifestyle.values());
         cbLifestyle.getSelectionModel().selectFirst();
-        datas.add(cbLifestyle, 1, 5);
+        this.add(cbLifestyle, 1, 5);
     }
 
-    /**
-     * Gives the Datas GridPane.
-     *
-     * @return the Datas GridPane.
-     */
-    GridPane getDatas() {
-        return datas;
-    }
+//    /**
+//     * Gives the Datas GridPane.
+//     *
+//     * @return the Datas GridPane.
+//     */
+//    GridPane getDatas() {
+//        return datas;
+//    }
 
     /**
-     * Gives the textfield Size.
+     * Gives the textfield tfdHeight.
      *
      * @return the textfield Size.
      */
-    double getHeight() {
-        return Double.valueOf(height.getText());
+    double getTfdHeight() {
+        return Double.valueOf(tfdHeight.getText());
     }
 
     /**
-     * Gives the value of weight.
+     * Gives the value of tfdWeight.
      *
      * @return the value of weight.
      */
-    double getWeight() {
-        return Double.valueOf(weight.getText());
+    double getTfdWeight() {
+        return Double.valueOf(tfdWeight.getText());
     }
 
     /**
-     * Gives the textfield Age.
+     * Gives the textfield tfdAge.
      *
      * @return the textfield Age.
      */
-    double getAge() {
-        return Double.valueOf(age.getText());
+    double getTfdAge() {
+        return Double.valueOf(tfdAge.getText());
     }
 
     /**
-     * Gives the radio button Women.
+     * Gives the radio button rbWomen.
      *
      * @return the radio button Women.
      */
@@ -215,7 +216,7 @@ class DatasPane {
     }
 
     /**
-     * Gives the choicebox Lifestyle.
+     * Gives the choicebox cbLifestyle.
      *
      * @return the choicebox lifestyle.
      */
@@ -227,9 +228,9 @@ class DatasPane {
      * Clear the datas fields.
      */
     void clearAllFields() {
-        height.clear();
-        weight.clear();
-        age.clear();
+        tfdHeight.clear();
+        tfdWeight.clear();
+        tfdAge.clear();
         cbLifestyle.getSelectionModel().selectFirst();
         rbWomen.setSelected(true);
     }
