@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 import td3.bmr.breton.model.BMRCalculator;
 import javafx.scene.control.TabPane;
 
-//TO-DO: REMOVE ALERTS AND SAY INVALID FIELDS !
 /**
  * This class provides methods to create, set and launch the BMR calculator.
  *
@@ -62,11 +61,16 @@ public class BMRfx extends Application {
         datas = new DatasPane(); //datas-zone of user
         results = new ResultsPane(); //results-zone of user
         person = new BMRCalculator();
-        //    chartTabs = new ChartTabPane();
+//        //    chartTabs = new ChartTabPane();
         chartTabPane = new TabPane();
-        addTabsAndLineCharts();
-             person.addAllObserver(results, chartWeightBMR, chartWeightCal, 
-                                   chartHeightBMR);
+        makeTabs();
+        makeLineCharts();
+        addChartsToTabs();
+        chartTabPane.getTabs().addAll(tabWeightBMR, tabWeightCal, tabHeightBMR);
+
+//        addTabsAndLineCharts();
+//        person.addAllObserver(results, chartHeightBMR);
+        person.addAllObserver(results, chartWeightBMR, chartWeightCal, chartHeightBMR);
 
         Button btnCalcul = makeButtonCalcul();
         Button btnClear = makeButtonClear();
@@ -85,32 +89,31 @@ public class BMRfx extends Application {
         primaryStage.show();
     }
 
-    private void addTabsAndLineCharts() {
-        makeLineCharts();
-        makeTabs();
-        chartTabPane.getTabs().addAll(tabWeightBMR, tabWeightCal, tabHeightBMR);
-    }
-
+//    private void addTabsAndLineCharts() {
+//        makeLineCharts();
+//        makeTabs();
+//        chartTabPane.getTabs().addAll(tabWeightBMR, tabWeightCal, tabHeightBMR);
+//    }
     private void makeTabs() {
         tabWeightBMR = new Tab("Weight (kg) Vs BMR");
         tabWeightCal = new Tab("Weight (kg) Vs Calories");
         tabHeightBMR = new Tab("Height (cm) Vs BMR");
-        addChartsToTabs();
+        //   addChartsToTabs();
     }
-
+//
     private void addChartsToTabs() {
         tabWeightBMR.setContent(chartWeightBMR);
         tabWeightCal.setContent(chartWeightCal);
         tabHeightBMR.setContent(chartHeightBMR);
 
     }
-
+//
     private void makeLineCharts() {
         initChartHeightBMR();
         initChartWeightBMR();
         initChartWeightCal();
     }
-
+//
     private void initChartHeightBMR() {
         NumberAxis xAxis = makeXAxis("Height (cm)");
         NumberAxis yAxis = makeYAxis("BMR");
@@ -134,13 +137,13 @@ public class BMRfx extends Application {
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(250);
     }
-
+//
     private NumberAxis makeXAxis(String label) {
         NumberAxis xAxis = new NumberAxis(0, 200, 25);
         xAxis.setLabel(label);
         return xAxis;
     }
-
+//
     private NumberAxis makeYAxis(String label) {
         NumberAxis yAxis = new NumberAxis(0, 3000, 250);
         yAxis.setLabel(label);
@@ -201,7 +204,7 @@ public class BMRfx extends Application {
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
         btnCalcul.setOnAction((ActionEvent event) -> {
-            person.setHeight(datas.getHeight());
+            person.setHeight(datas.getTfdHeight());
             person.setWeight(datas.getTfdWeight());
             person.setAge(datas.getTfdAge());
             person.setGender(datas.getRbWomen());

@@ -8,7 +8,8 @@ import td3.bmr.breton.model.BMRCalculator;
 import td3.bmr.breton.util.Observer;
 
 /**
- *
+ * This class is used to create line charts and use them for the BMR calculator.
+ * 
  * @author Gabriel Breton - 43397
  */
 class LineCharts extends LineChart implements Observer {
@@ -18,19 +19,22 @@ class LineCharts extends LineChart implements Observer {
 
     @Override
     public void update(BMRCalculator person) {
-        
-        if (this.getTitle().matches("Height (cm) Vs BMR")) {
-            setSeries(person.isWomen(), person.getHeight(), person.getBmr());
-        } 
-        
-        if (this.getTitle().matches("Weight (kg) Vs Calories")) {
+
+        if (getTitle().equals("Weight (kg) Vs BMR")) {
+            setSeries(person.isWomen(), person.getWeight(), person.getBmr());
+        }
+
+        if (getTitle().equals("Weight (kg) Vs Calories")) {
+
             setSeries(person.isWomen(), person.getWeight(), 
                       person.getCalories());
         }
-            
-        if (this.getTitle().matches("Weight(kg) Vs BMR")) {
-            setSeries(person.isWomen(), person.getWeight(), person.getBmr());
+
+        if (getTitle().equals("Height (cm) Vs BMR")) {
+            setSeries(person.isWomen(), person.getHeight(), person.getBmr());
+
         }
+
     }
 
     private void setSeries(boolean isWomen, Double data, Double result) {
