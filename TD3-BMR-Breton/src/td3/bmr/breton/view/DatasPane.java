@@ -1,9 +1,6 @@
 package td3.bmr.breton.view;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.input.KeyEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
