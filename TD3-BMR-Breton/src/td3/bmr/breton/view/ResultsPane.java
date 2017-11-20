@@ -16,12 +16,14 @@ public class ResultsPane extends GridPane implements Observer {
 
     private TextField tfdBMR;
     private TextField tfdCalories;
-    
+
+    /**
+     * Creates a new gridpane for the results.
+     */
     ResultsPane() {
         super();
         setGridPane();
         initLabelsTfdButtons();
-        
     }
     
     /**
@@ -34,7 +36,7 @@ public class ResultsPane extends GridPane implements Observer {
     }
 
     /**
-     * Initializes the Results GridPane.
+     * Initializes the results GridPane.
      */
     private void setGridPane() {
         this.setPadding(new Insets(5));
@@ -74,15 +76,6 @@ public class ResultsPane extends GridPane implements Observer {
         tfdCalories.setPromptText("Calories expenses");
         this.add(tfdCalories, 1, 2);
     }
-
-//    /**
-//     * Gives the results GridPane.
-//     *
-//     * @return the results GridPane.
-//     */
-//    GridPane getResults() {
-//        return results;
-//    }
 
     /**
      * Set the BMR textfield.
@@ -142,6 +135,12 @@ public class ResultsPane extends GridPane implements Observer {
         tfdCalories.clear();
     }
 
+    /**
+     * Updates the fields for the results of the calculation of the BMR and the
+     * calories.
+     * 
+     * @param person the person with new attributes values.
+     */
     @Override
     public void update(BMRCalculator person) {
         setBMR(person.getBmr());

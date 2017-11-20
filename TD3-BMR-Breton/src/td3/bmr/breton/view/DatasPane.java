@@ -18,13 +18,15 @@ import td3.bmr.breton.model.Lifestyle;
  */
 class DatasPane extends GridPane {
 
-    //private GridPane datas;    //useless
     private TextField tfdHeight;  
     private TextField tfdWeight;
     private TextField tfdAge;
     private RadioButton rbMen, rbWomen;
     private ChoiceBox cbLifestyle;
 
+    /**
+     * Creates a new gridpane for the datas of the user.
+     */
     DatasPane() {
         super();
         setGridPane();
@@ -35,7 +37,6 @@ class DatasPane extends GridPane {
      * Initialize and set the components of the GridPane.
      */
     private void initLabelsTfdButtons() {
-      //  initGridPane();
         makeTitle();
         makeLabels();
         makeTextFields();
@@ -44,7 +45,7 @@ class DatasPane extends GridPane {
     }
 
     /**
-     * Initialize the Datas GridPane.
+     * Initialize the gridpane.
      */
     private void setGridPane() {
         this.setPadding(new Insets(5));
@@ -53,7 +54,7 @@ class DatasPane extends GridPane {
     }
 
     /**
-     * Add the title on the GridPane.
+     * Add the title on the gridpane.
      */
     private void makeTitle() {
         Label datasTitle = new Label("Datas");
@@ -166,15 +167,6 @@ class DatasPane extends GridPane {
         cbLifestyle.getSelectionModel().selectFirst();
         this.add(cbLifestyle, 1, 5);
     }
-
-//    /**
-//     * Gives the Datas GridPane.
-//     *
-//     * @return the Datas GridPane.
-//     */
-//    GridPane getDatas() {
-//        return datas;
-//    }
 
     /**
      * Gives the textfield tfdHeight.

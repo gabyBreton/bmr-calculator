@@ -3,10 +3,8 @@ package td3.bmr.breton.model;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
 import td3.bmr.breton.util.Observable;
 import td3.bmr.breton.util.Observer;
-import td3.bmr.breton.view.ResultsPane;
 
 /**
  * This class calculates the BMR and the calories.
@@ -25,13 +23,11 @@ public class BMRCalculator implements Observable {
     private final List<Observer> listObs;
 
     public BMRCalculator() {
-        this.listObs = new ArrayList<>();
+        listObs = new ArrayList<>();
     }
 
     /**
-     * Calculate the BMR.
-     *
-     * @return the value of the BMR.
+     * Calculates the BMR.
      */
     private void calculateBMR() {
         if (women) {
@@ -43,8 +39,6 @@ public class BMRCalculator implements Observable {
 
     /**
      * Calculates the daily amounts of calories.
-     *
-     * @return the daily calories.
      */
     public void calculateCalories() {
         calculateBMR();
@@ -82,7 +76,7 @@ public class BMRCalculator implements Observable {
     /**
      * Set the height value.
      *
-     * @param height the size value.
+     * @param height the height value.
      */
     public void setHeight(Double height) {
         this.height = height;
@@ -98,20 +92,11 @@ public class BMRCalculator implements Observable {
     }
 
     /**
-     * Set the value of women corresponding on the radio button selected.
-     *
-     * @param rbWomen the women radio button.
-     */
-    public void setGender(RadioButton rbWomen) {
-        setWomen(rbWomen.isSelected());
-    }
-
-    /**
      * Set the women value.
      *
      * @param women the boolean to set.
      */
-    private void setWomen(boolean women) {
+    public void setWomen(boolean women) {
         this.women = women;
     }
 
@@ -123,7 +108,7 @@ public class BMRCalculator implements Observable {
      */
     public void setLifestyle(ChoiceBox cbLifestyle) {
         Lifestyle lifestyle;
-        lifestyle = (Lifestyle) cbLifestyle.getSelectionModel().getSelectedItem();
+        lifestyle=(Lifestyle) cbLifestyle.getSelectionModel().getSelectedItem();
         assignLifestyleValue(lifestyle);
     }
 
@@ -152,14 +137,6 @@ public class BMRCalculator implements Observable {
         }
     }
 
-    public double getWeight() {
-        return weight;
-    }
-
-    public boolean isWomen() {
-        return women;
-    }
-
     /**
      * Set the lifestyle value.
      *
@@ -168,7 +145,48 @@ public class BMRCalculator implements Observable {
     private void setLifestyleValue(double lifestyleValue) {
         this.lifestyleValue = lifestyleValue;
     }
+    
+    /**
+     * Gives the value of age.
+     * 
+     * @return the value of age.
+     */
+    public double getAge() {
+        return age;
+    }
 
+    /**
+     * Gives the value of height.
+     * 
+     * @return the value of height.
+     */
+    public double getHeight() {
+        return height;
+    }
+    
+    /**
+     * Gives the value of weight.
+     * 
+     * @return the value of weight.
+     */
+    public double getWeight() {
+        return weight;
+    }
+
+    /**
+     * Gives the value of women.
+     * 
+     * @return true if women, or else false.
+     */
+    public boolean isWomen() {
+        return women;
+    }
+
+    /**
+     * Add an observer in the list of observers.
+     * 
+     * @param o the observer to add.
+     */
     @Override
     public void addObserver(Observer o) {
         if (!listObs.contains(o)) {
@@ -176,6 +194,11 @@ public class BMRCalculator implements Observable {
         }
     }
 
+    /**
+     * Add a variable number of observers.
+     * 
+     * @param o the differents observers.
+     */
     @Override
     public void addAllObserver(Observer... o) {
         for (Observer obs : o) {
@@ -183,23 +206,22 @@ public class BMRCalculator implements Observable {
         }
     }
 
+    /**
+     * Deletes an observer from the list of observers.
+     * 
+     * @param o the observer to delete.
+     */
     @Override
     public void deleteObserver(Observer o) {
         listObs.remove(o);
     }
 
+    /**
+     * Notifies of an update the observers of the list.
+     */
     private void notifyObservers() {
-        for (Observer obs : listObs) {
+        listObs.forEach((obs) -> {
             obs.update(this);
-        }
+        });
     }
-
-    public double getAge() {
-        return age;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
 }

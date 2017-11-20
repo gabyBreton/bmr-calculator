@@ -4,18 +4,15 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import td3.bmr.breton.model.BMRCalculator;
-import javafx.scene.control.TabPane;
 
 /**
  * This class provides methods to create, set and launch the BMR calculator.
@@ -46,16 +43,13 @@ public class BMRfx extends Application {
     @Override
     public void start(Stage primaryStage) {
         setStage(primaryStage);
+        
         BorderPane root = new BorderPane();
         VBox dataResultBtnZone = makeDataResultBtnZone();
         VBox zoneButtons = makeZoneButtons();
         HBox infosBox = makeInfosBox(); // zone with users datas & results
 
-        datas = new DatasPane(); //datas-zone of user
-        results = new ResultsPane(); //results-zone of user
-        person = new BMRCalculator();
-        chartTabs = new ChartTabPane();
-
+        makeAttributs();
         person.addAllObserver(results, chartTabs.getChartWeightBMR(), 
                               chartTabs.getChartWeightCal(), 
                               chartTabs.getChartHeightBMR());
@@ -77,41 +71,78 @@ public class BMRfx extends Application {
         primaryStage.show();
     }
 
+    private void makeAttributs() {
+        datas = new DatasPane(); //datas-zone of user
+        results = new ResultsPane(); //results-zone of user
+        person = new BMRCalculator();
+        chartTabs = new ChartTabPane();
+    }
+
+    /**
+     * Set the stage of the application.
+     * 
+     * @param primaryStage the primary stage of the application.
+     */
     private void setStage(Stage primaryStage) {
         primaryStage.setTitle("BMR Calculator");
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(250);
     }
 
+    /**
+     * Makes the box for the infos (datas and results)
+     * 
+     * @return the new box.
+     */
     private HBox makeInfosBox() {
         HBox infosBox = new HBox();
         infosBox.setPadding(new Insets(7));
         return infosBox;
     }
 
+    /**
+     * Makes the box that will contains the buttons (clear and calculate)
+     * 
+     * @return the new box.
+     */
     private VBox makeZoneButtons() {
         VBox zoneButtons = new VBox();
         zoneButtons.setSpacing(11);
         return zoneButtons;
     }
 
+    /**
+     * Makes the box that will contains the boxes for the buttons and the infos.
+     * 
+     * @return the new box.
+     */
     private VBox makeDataResultBtnZone() {
         VBox dataResultBtnZone = new VBox();
         dataResultBtnZone.setPadding(new Insets(6));
         return dataResultBtnZone;
     }
 
+    /**
+     * Makes the menu bar.
+     * 
+     * @return the new menu bar.
+     */
     private MenuBar makeMenuBar() {
         MenuBar menuBar = new MenuBar();
         Menu menuFile = new Menu("File");
 
-        MenuItem exit = makeActionExit();
+        MenuItem exit = makeItemExit();
         menuFile.getItems().add(exit);
         menuBar.getMenus().add(menuFile);
         return menuBar;
     }
 
-    private MenuItem makeActionExit() {
+    /**
+     * Makes the menu item exit.
+     * 
+     * @return the new menu item.
+     */
+    private MenuItem makeItemExit() {
         MenuItem exit = new MenuItem("Exit");
 
         exit.setOnAction((ActionEvent t) -> {
@@ -121,6 +152,11 @@ public class BMRfx extends Application {
         return exit;
     }
 
+    /**
+     * Makes the button to clear the datas and results.
+     * 
+     * @return the new button.
+     */
     private Button makeButtonClear() {
         Button btnClear = new Button("Clear");
         btnClear.setMaxWidth(Double.MAX_VALUE);
@@ -128,22 +164,35 @@ public class BMRfx extends Application {
         btnClear.setOnAction((ActionEvent event) -> {
             datas.clearAllFields();
             results.clearAllFields();
+            //CLEAR SERIES
         });
 
         return btnClear;
     }
 
+    /**
+     * Makes the button to calculate the BMR.
+     * 
+     * @return the new button.
+     */
     private Button makeButtonCalcul() {
         Button btnCalcul = new Button("Calculate the BMR");
         btnCalcul.setMaxWidth(Double.MAX_VALUE);
         btnCalcul.setOnAction((ActionEvent event) -> {
-            person.setHeight(datas.getTfdHeight());
-            person.setWeight(datas.getTfdWeight());
-            person.setAge(datas.getTfdAge());
-            person.setGender(datas.getRbWomen());
-            person.setLifestyle(datas.getCbLifestyle());
+            setPersonAttributs();
             person.calculateCalories();
         });
         return btnCalcul;
+    }
+
+    /**
+     * Set the attributs of the person, based on the datas.
+     */
+    private void setPersonAttributs() {
+        person.setHeight(datas.getTfdHeight());
+        person.setWeight(datas.getTfdWeight());
+        person.setAge(datas.getTfdAge());
+        person.setWomen(datas.getRbWomen().isSelected());
+        person.setLifestyle(datas.getCbLifestyle());
     }
 }

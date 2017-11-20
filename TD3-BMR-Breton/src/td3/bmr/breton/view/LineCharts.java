@@ -16,7 +16,51 @@ class LineCharts extends LineChart implements Observer {
 
     private Series womenSeries;
     private Series menSeries;
+    
+    /**
+     * Creates a new line chart.
+     * 
+     * @param title the title of the line chart.
+     * @param xAxis the XAxis of the line chart.
+     * @param yAxis the YAxis of the line chart.
+     */
+    LineCharts(String title, NumberAxis xAxis, NumberAxis yAxis) {
+        super(xAxis, yAxis);
+        this.setTitle(title);
 
+        womenSeries = makeWomenSeries();
+        menSeries = makeMenSeries();
+        this.getData().addAll(menSeries, womenSeries);
+    }  
+
+    /**
+     * Makes the series 'women'.
+     * 
+     * @return the new series.
+     */
+    private Series makeWomenSeries() {
+        womenSeries = new Series();
+        womenSeries.setName("WomenData");
+
+        return womenSeries;
+    }
+
+    /**
+     * Makes the series 'men'.
+     * 
+     * @return the new series.
+     */
+    private Series makeMenSeries() {
+        menSeries = new Series();
+        menSeries.setName("MenData");
+
+        return menSeries;
+    }
+
+    /**
+     * Updates a line chart differently, based on its title.
+     * @param person 
+     */
     @Override
     public void update(BMRCalculator person) {
 
@@ -34,38 +78,20 @@ class LineCharts extends LineChart implements Observer {
             setSeries(person.isWomen(), person.getHeight(), person.getBmr());
 
         }
-
     }
 
+    /**
+     * Set the series of a line chart.
+     * 
+     * @param isWomen the value of the attribut women.
+     * @param data the value of the data (height or weight).
+     * @param result the value of the result (BMR or calories).
+     */
     private void setSeries(boolean isWomen, Double data, Double result) {
         if (isWomen) {
             womenSeries.getData().add(new XYChart.Data(data, result));
         } else {
             menSeries.getData().add(new XYChart.Data(data, result));
         }
-    }
-
-    LineCharts(String title, NumberAxis xAxis, NumberAxis yAxis) {
-        super(xAxis, yAxis);
-        this.setTitle(title);
-
-        womenSeries = makeWomenSeries();
-        menSeries = makeMenSeries();
-        this.getData().addAll(menSeries, womenSeries);
-    }
-
-    private Series makeWomenSeries() {
-        womenSeries = new Series();
-        womenSeries.setName("WomenData");
-
-        return womenSeries;
-    }
-
-    private Series makeMenSeries() {
-        menSeries = new Series();
-        menSeries.setName("MenData");
-
-        return menSeries;
-    }
-
+    }  
 }
