@@ -134,7 +134,8 @@ class DatasPane extends GridPane {
                                               String oldValue, 
                                               String newValue) -> {
             if (!newValue.matches("[0-9]*\\.?[0-9]+")) {
-                textField.setText(newValue.replaceAll("[^\\d.]", ""));
+ 
+            textField.setText(newValue.replaceAll("[^\\d.]", ""));
             }
         });
     }
